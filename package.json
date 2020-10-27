@@ -1,17 +1,20 @@
 {
-  "name": "tamsbackend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Johan Perera",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "init-gitignore": "^1.0.2",
-    "mongoose": "^5.10.9",
-    "nodemon": "^2.0.4"
-  }
+    "name": "tamsbackend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "server": "nodemon app.js"
+    },
+    "author": "Johan Perera",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "init-gitignore": "^1.0.2",
+        "mongoose": "^5.10.9"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
 }
