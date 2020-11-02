@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-Itinerary = mongoose.model('ItineraryModel');
+Itinerary = mongoose.model('Travel_itinerary');
 
 exports.listAllItineraries = function(req, res) {
     Itinerary.find({}, function(err, itinerary) {
@@ -28,12 +28,14 @@ exports.addAItinerary = function(req, res) {
 };
 
 exports.getASingleItinerary = function(req, res) {
-    Itinerary.findById({ date: req.params.date, travel_agent_id: req.params.taid }, function(err, itinerary) {
+    Itinerary.find({ date: req.params.date, travel_agent_id: req.params.taid }, function(err, itinerary) {
         if (err) {
             res.json({ status: false, data: 'Invalid date or TAID' });
         }
 
         res.json({ status: true, data: itinerary });
+
+
     })
 };
 
@@ -48,7 +50,7 @@ exports.updateAItinerary = function(req, res) {
 };
 
 exports.deleteAItinerary = function(req, res) {
-    Student.remove({ date: req.params.date, travel_agent_id: req.params.taid }, function(err, itinerary) {
+    Itinerary.remove({ date: req.params.date, travel_agent_id: req.params.taid }, function(err, itinerary) {
         if (err) {
             res.json({ status: false, data: 'Unable to Delete!' });
         }

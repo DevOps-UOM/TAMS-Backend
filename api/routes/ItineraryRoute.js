@@ -11,7 +11,7 @@ module.exports = function(app) {
     app.route('/itineraries/:date/:taid').get(itineraries.getASingleItinerary);
 
     //edit Itinerary
-    app.route('/itinerarie/:date/:taid').put(itineraries.updateAItinerary);
+    app.route('/itineraries/:date/:taid').put(itineraries.updateAItinerary);
 
     //delete Itinerary
     app.route('/itineraries/:date/:taid').delete(itineraries.deleteAItinerary);
