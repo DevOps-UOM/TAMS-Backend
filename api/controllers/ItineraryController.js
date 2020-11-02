@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Customers = require('../controllers/CustomerController');
 
 Itinerary = mongoose.model('Travel_itinerary');
 
@@ -58,3 +59,18 @@ exports.deleteAItinerary = function(req, res) {
         res.json({ status: true, data: 'Itinerary removed Successfully!' });
     })
 };
+
+exports.getAllocatedCustomers = function(req, res) {
+    getASingleItinerary(req, resItin);
+    var customerList = resItin.data.assigned_customer_id;
+    var customers;
+    for (var i = 0; i < customerList.length; i++) {
+        Customers.getASingleCustomer(customerList[i], resCust);
+        customers.push(resCust.data);
+    }
+    if (err) {
+        res.json({ status: false, data: 'Unable to get Allocated Customers!' });
+    }
+
+    res.json({ status: true, data: customers });
+}

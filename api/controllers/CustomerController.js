@@ -56,3 +56,7 @@ exports.deleteACustomer = function(req, res) {
         res.json({ status: true, data: 'Customer removed Successfully!' });
     })
 };
+
+
+
+//getItineraryCustomers

@@ -46,7 +46,8 @@ var CustomerSchema = new Schema({
         address_line_2: String,
         city: String
     },
-    area: String
+    area: String,
+    is_deleted:Boolean
 });
 
 module.exports = mongoose.model('Customer', CustomerSchema);
