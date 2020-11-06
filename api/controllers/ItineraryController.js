@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-var Customers = require('../controllers/CustomerController');
 
 Itinerary = mongoose.model('Travel_itinerary');
+Customers = mongoose.model('Customer');
 
 exports.listAllItineraries = function(req, res) {
     Itinerary.find({}, function(err, itinerary) {
@@ -60,17 +60,13 @@ exports.deleteAItinerary = function(req, res) {
     })
 };
 
-exports.getAllocatedCustomers = function(req, res) {
-    getASingleItinerary(req, resItin);
-    var customerList = resItin.data.assigned_customer_id;
-    var customers;
-    for (var i = 0; i < customerList.length; i++) {
-        Customers.getASingleCustomer(customerList[i], resCust);
-        customers.push(resCust.data);
+exports.getAllocatedCustomers = (async function(req, res) {
+    try {
+        const travel_itenery = await Itinerary.find({ date: req.params.date, travel_agent_id: req.params.taid });
+        const customers_array = travel_itenery[0].assigned_customer_id;
+        const relevant_customers = await Customers.find({ cust_id: { $in: customers_array }, is_deleted: false });
+        res.json({ status: true, data: relevant_customers });
+    } catch (error) {
+        console.log("Error from backend");
     }
-    if (err) {
-        res.json({ status: false, data: 'Unable to get Allocated Customers!' });
-    }
-
-    res.json({ status: true, data: customers });
-}
+})

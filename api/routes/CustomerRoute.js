@@ -16,7 +16,6 @@ module.exports = function(app) {
     //delete Itinerary
     app.route('/customers/:id').delete(customers.deleteACustomer);
 
-    //get Customers belongs to a single itinerary
-    app.route('/customers/itinerary_customers').get(customers.getItineraryCustomers)
+
 
 }
