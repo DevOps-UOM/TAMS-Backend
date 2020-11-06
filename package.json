@@ -12,7 +12,8 @@
         "cors": "^2.8.5",
         "express": "^4.17.1",
         "init-gitignore": "^1.0.2",
-        "mongoose": "^5.10.9"
+        "mongoose": "^5.10.9",
+        "mongoose-type-email": "^1.0.13"
     },
     "devDependencies": {
         "nodemon": "^2.0.6"
