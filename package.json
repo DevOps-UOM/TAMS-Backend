@@ -4,7 +4,8 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "server": "nodemon app.js"
+        "server": "nodemon app.js",
+        "start": "nodemon app.js"
     },
     "author": "Johan Perera",
     "license": "ISC",
@@ -19,3 +20,4 @@
         "nodemon": "^2.0.6"
     }
 }
+    
