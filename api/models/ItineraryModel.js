@@ -3,8 +3,12 @@ var Schema = mongoose.Schema;
 
 
 
-var ItinerarySchema = new Schema({
 
+var ItineraryDateSchema = new Schema({
+    date: {
+        type: Date,
+        required: 'Enter Date'
+    },
     travel_agent_id: {
         type: String,
         required: 'Enter Travel Agent ID'
@@ -12,12 +16,4 @@ var ItinerarySchema = new Schema({
     assigned_customer_id: [String]
 });
 
-var ItineraryDateSchema = new Schema({
-    date: {
-        type: Date,
-        required: 'Enter Date'
-    },
-    itinerarySchemas: [ItinerarySchema]
-});
-
-module.exports = mongoose.model('ItineraryModel', ItineraryDateSchema);
+module.exports = mongoose.model('Travel_itinerary', ItineraryDateSchema);
