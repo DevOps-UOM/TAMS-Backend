@@ -14,7 +14,7 @@ var Itinerary = require('./api/models/ItineraryModel');
 var Customer = require('./api/models/CustomerModel');
 var Availability = require('./api/models/AvailabilityModel');
 var leaves = require('./api/models/leavesModel');
-
+var Grade = require('./api/models/grade');
 mongoose.Promise = global.Promise;
 
 const connectDB = async() => {
@@ -30,11 +30,13 @@ var routeItinerary = require('./api/routes/ItineraryRoute');
 var routeCustomer = require('./api/routes/CustomerRoute');
 var routeAvailability = require('./api/routes/AvailabilityRoute');
 var routeleaves = require('./api/routes/leavesRoute');
+var userRoutes = require('./api/routes/UserRoutes');
 
 routeItinerary(app);
 routeCustomer(app);
 routeAvailability(app);
 routeleaves(app);
+userRoutes(app);
 
 
 app.use(function(req, res) {
