@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 Itinerary = mongoose.model('Travel_itinerary');
 Customers = mongoose.model('Customer');
+TaskAssignment = mongoose.model('task_assignment')
 
 exports.listAllItineraries = function(req, res) {
     Itinerary.find({}, function(err, itinerary) {
@@ -65,6 +66,25 @@ exports.getAllocatedCustomers = (async function(req, res) {
         const travel_itenery = await Itinerary.find({ date: req.params.date, travel_agent_id: req.params.taid });
         const customers_array = travel_itenery[0].assigned_customer_id;
         const relevant_customers = await Customers.find({ cust_id: { $in: customers_array }, is_deleted: false });
+        res.json({ status: true, data: relevant_customers });
+    } catch (error) {
+        console.log("Error from backend");
+    }
+})
+
+exports.getAllocatedPendingCustomers = (async function(req, res) {
+    try {
+        const travel_itenery = await Itinerary.find({ date: req.params.date, travel_agent_id: req.params.taid });
+        const customers_array = travel_itenery[0].assigned_customer_id;
+        const pending_customers = await TaskAssignment.find({ cust_id: { $in: customers_array }, itinerary_id: travel_itenery[0]._id, status: "Pending" });
+
+        var pending_customer_array = [];
+        for (const customer of pending_customers) {
+            pending_customer_array.push(customer.cust_id);
+        }
+        const relevant_customers = await Customers.find({ cust_id: { $in: pending_customer_array }, is_deleted: false });
+
+        //console.log(res);
         res.json({ status: true, data: relevant_customers });
     } catch (error) {
         console.log("Error from backend");

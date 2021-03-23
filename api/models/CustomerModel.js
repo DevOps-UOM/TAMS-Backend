@@ -47,7 +47,8 @@ var CustomerSchema = new Schema({
         city: String
     },
     area: String,
-    is_deleted:Boolean
+    is_deleted: Boolean,
+    default_agent_id: String
 });
 
 module.exports = mongoose.model('Customer', CustomerSchema);
