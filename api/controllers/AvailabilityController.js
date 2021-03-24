@@ -13,11 +13,18 @@ exports.createAvailability = function(req, res) {
 };
 
 exports.getAllAvailability = function(req, res) {
-    Availability.find({}, function(err, availabilities) {
-        if (err) {
-            res.json({ status: false, data: 'Invalid Request!' });
-        }
+    Availability.find({}).populate('task')
+    .then(availabilities => {
         res.json({ status: true, data: availabilities });
-    });
+    })
+    .catch(err => {
+        res.json({ status: false, data: err.message });
+    })
+    // Availability.find({}, function(err, availabilities) {
+    //     if (err) {
+    //         res.json({ status: false, data: 'Invalid Request!' });
+    //     }
+    //     res.json({ status: true, data: availabilities });
+    // }).populate('task');
 };
 
