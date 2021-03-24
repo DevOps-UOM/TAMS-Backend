@@ -13,7 +13,9 @@ var port = process.env.PORT || 3000;
 var Itinerary = require('./api/models/ItineraryModel');
 var Customer = require('./api/models/CustomerModel');
 var Availability = require('./api/models/AvailabilityModel');
+var leaves = require('./api/models/leavesModel');
 var Task = require('./api/models/TasksModel');
+
 
 mongoose.Promise = global.Promise;
 
@@ -29,11 +31,13 @@ app.use(bodyParser.json());
 var routeItinerary = require('./api/routes/ItineraryRoute');
 var routeCustomer = require('./api/routes/CustomerRoute');
 var routeAvailability = require('./api/routes/AvailabilityRoute');
+var routeleaves = require('./api/routes/leavesRoute');
 var routeTask = require('./api/routes/TasksRoute');
 
 routeItinerary(app);
 routeCustomer(app);
 routeAvailability(app);
+routeleaves(app);
 routeTask(app);
 
 app.use(function(req, res) {
