@@ -34,6 +34,7 @@ exports.updateTaskAssignment = function(req, res) {
             res.json({ status: false, data: 'Unable to Update!' });
         }
 
+        //console.log(taskAssignment);
         res.json({ status: true, data: taskAssignment });
     })
 };

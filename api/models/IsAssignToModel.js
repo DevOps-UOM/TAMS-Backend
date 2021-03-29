@@ -26,6 +26,10 @@ var TaskAssignment = new Schema({
     is_deleted: {
         type: Boolean,
         default: false
+    },
+    queue_number: {
+        type: Number,
+        default: 100
     }
 });
 
