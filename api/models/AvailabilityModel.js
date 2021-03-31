@@ -17,9 +17,10 @@ const AvailabilitySchema = new Schema({
     time_to: {
         type: String,
     },
-    task: {
-        type: String
-    },
+    task: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Task'
+    }],
     note: {
         type: String
     },

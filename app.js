@@ -16,6 +16,8 @@ var Availability = require('./api/models/AvailabilityModel');
 var leaves = require('./api/models/leavesModel');
 var Grade = require('./api/models/grade');
 var TaskAssignment = require('./api/models/IsAssignToModel');
+var Task = require('./api/models/TasksModel');
+
 
 mongoose.Promise = global.Promise;
 
@@ -34,6 +36,8 @@ var routeAvailability = require('./api/routes/AvailabilityRoute');
 var routeleaves = require('./api/routes/leavesRoute');
 var userRoutes = require('./api/routes/UserRoutes');
 var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
+var routeTask = require('./api/routes/TasksRoute');
+
 
 routeItinerary(app);
 routeCustomer(app);
@@ -41,6 +45,8 @@ routeAvailability(app);
 routeleaves(app);
 userRoutes(app);
 routeTaskAssignment(app);
+routeTask(app);
+
 
 app.use(function(req, res) {
     res.status(404).send({ url: req.originalUrl + ' not found!' });
