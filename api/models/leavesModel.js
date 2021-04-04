@@ -12,7 +12,7 @@ var leavesSchema = new Schema({
         required: 'Enter TA ID'
     },
     leave_date: {
-        type: Date,
+        type: Object,
         required: true
     },
     pod: {
