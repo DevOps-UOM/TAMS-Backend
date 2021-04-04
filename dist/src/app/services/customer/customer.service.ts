@@ -6,12 +6,12 @@ import { HttpClient,HttpResponse,HttpClientModule } from '@angular/common/http';
 })
 export class CustomerService {
 
-  apiEndPoint = 'http://192.168.8.101:3000';
+  //apiEndPoint = 'http://192.168.8.101:3000';
 
   constructor(private http: HttpClient) { }
 
   getASingleItinerary(cusid: String) {
-    return this.http.get(this.apiEndPoint + '/customers/' + cusid);
+    return this.http.get('customers/' + cusid);
   }
 
 }

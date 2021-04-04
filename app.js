@@ -2,13 +2,17 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const uri = "mongodb+srv://dbAdmin:LGPxREeweWiVjnPM@clustertams.ovlfe.mongodb.net/TRAVELING-AGENTS-MANAGEMENT-SYSTEM?retryWrites=true&w=majority";
 
 var app = express();
 
 app.use(cors());
 
+
 var port = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 var Itinerary = require('./api/models/ItineraryModel');
 var Customer = require('./api/models/CustomerModel');
@@ -54,10 +58,9 @@ app.use(function(req, res) {
     res.status(404).send({ url: req.originalUrl + ' not found!' });
 });
 
-app.use(express.static(__dirname + '/dist'));
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist/src/index.html'));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 })
 
 app.listen(port);
