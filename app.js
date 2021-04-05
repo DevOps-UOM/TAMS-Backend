@@ -2,6 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const cors = require('cors');
+//const http = require('http');
 //const path = require('path');
 const uri = "mongodb+srv://dbAdmin:LGPxREeweWiVjnPM@clustertams.ovlfe.mongodb.net/TRAVELING-AGENTS-MANAGEMENT-SYSTEM?retryWrites=true&w=majority";
 
@@ -63,12 +64,14 @@ app.use(function(req, res) {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })
 
-app.listen(port);
+app.listen(port, () => {
+    console.log("TAMS Restful API server started on :" + port);
+});
 
 // app.listen(port, '0.0.0.0', function() {
 //         console.log("Node app is running at localhost:" + app.get('port'));
 //     })
-console.log("TAMS Restful API server started on :" + port);
+
 
 /*
 const MongoClient = require('mongodb').MongoClient;
