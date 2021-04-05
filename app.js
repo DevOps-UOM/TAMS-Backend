@@ -63,17 +63,20 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 })
 
-app.listen(port);
+//app.listen(port);
 
-console.log("TAMS Restful API server started on :" + port);
+app.listen(port, '0.0.0.0', function() {
+            console.log("Node app is running at localhost:" + app.get('port'));
 
-/*
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://dbAdmin:LGPxREeweWiVjnPM@clustertams.ovlfe.mongodb.net/TRAVELING-AGENTS-MANAGEMENT-SYSTEM?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
-*/
+            //console.log("TAMS Restful API server started on :" + port);
+
+            /*
+            const MongoClient = require('mongodb').MongoClient;
+            const uri = "mongodb+srv://dbAdmin:LGPxREeweWiVjnPM@clustertams.ovlfe.mongodb.net/TRAVELING-AGENTS-MANAGEMENT-SYSTEM?retryWrites=true&w=majority";
+            const client = new MongoClient(uri, { useNewUrlParser: true });
+            client.connect(err => {
+              const collection = client.db("test").collection("devices");
+              // perform actions on the collection object
+              client.close();
+            });
+            */
