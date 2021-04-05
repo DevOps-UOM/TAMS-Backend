@@ -4,6 +4,8 @@
     "description": "",
     "main": "app.js",
     "scripts": {
+        "preinstall": "npm link @angular/cli ",
+        "postinstall": "",
         "ng": "ng",
         "start": "node app",
         "build": "ng build --prod",
