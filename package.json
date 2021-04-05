@@ -4,8 +4,14 @@
     "description": "",
     "main": "app.js",
     "scripts": {
+        "ng": "ng",
+        "start": "node app",
+        "build": "ng build --prod",
+        "test": "ng test",
+        "lint": "ng lint",
+        "e2e": "ng e2e",
         "heroku-postbuild": "ng build --prod",
-        "start": "node app"
+        "postinstall": "ng build --aot -prod"
     },
     "author": "Johan Perera",
     "license": "ISC",
