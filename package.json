@@ -4,20 +4,12 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "preinstall": "npm link @angular/cli ",
-        "postinstall": "",
-        "ng": "ng",
-        "start": "node app",
-        "test": "ng test",
-        "lint": "ng lint",
-        "e2e": "ng e2e"
+        "start": "nodemon app.js",
+        "test": "ng test"
     },
     "author": "Johan Perera",
     "license": "ISC",
     "dependencies": {
-        "@angular-devkit/build-angular": "^0.1102.7",
-        "@angular/cli": "^11.2.7",
-        "@angular/compiler-cli": "^11.2.8",
         "cors": "^2.8.5",
         "express": "^4.17.1",
         "init-gitignore": "^1.0.2",
