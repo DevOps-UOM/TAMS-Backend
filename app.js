@@ -49,7 +49,11 @@ connectDB();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
 
+    res.send("hello and welcome");
+
+});
 
 var routeItinerary = require('./api/routes/ItineraryRoute');
 var routeCustomer = require('./api/routes/CustomerRoute');
