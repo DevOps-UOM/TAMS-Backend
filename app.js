@@ -11,7 +11,7 @@ var app = express();
 app.use(cors());
 
 
-var port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // app.use(express.static(path.join(__dirname, 'public')));
 
@@ -82,8 +82,8 @@ app.use(function(req, res) {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })
 
-app.listen(port, () => {
-    console.log("TAMS Restful API server started on :" + port);
+app.listen(PORT, () => {
+    console.log("TAMS Restful API server started on :" + PORT);
 });
 
 // app.listen(port, '0.0.0.0', function() {
