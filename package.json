@@ -18,10 +18,6 @@
         "typescript": "^4.2.3"
     },
     "engines": {
-        "node": "v12.19.0",
-        "npm": "6.14.8"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.7"
+        "node": "v12.19.0"
     }
 }
