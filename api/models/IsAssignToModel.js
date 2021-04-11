@@ -14,10 +14,10 @@ var TaskAssignment = new Schema({
     rate: {
         type: Number,
     },
-    task_id: {
-        type: String,
-        required: 'Enter Task ID'
-    },
+    task: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Task'
+    }],
     status: {
         type: String,
         enum: ["Pending", "Completed", "Postponed"],

@@ -2,14 +2,24 @@ var mongoose = require("mongoose");
 
 TaskAssignment = mongoose.model('task_assignment');
 
-exports.listAllTaskAssignments = function(req, res) {
-    TaskAssignment.find({ is_deleted: false }, function(err, taskAssignment) {
-        if (err) {
-            res.json({ status: false, data: 'Invalid Request!' });
-        }
+// exports.listAllTaskAssignments = function(req, res) {
+//     TaskAssignment.find({ is_deleted: false }, function(err, taskAssignment) {
+//         if (err) {
+//             res.json({ status: false, data: 'Invalid Request!' });
+//         }
 
-        res.json({ status: true, data: taskAssignment });
-    });
+//         res.json({ status: true, data: taskAssignment });
+//     });
+// };
+
+exports.listAllTaskAssignments = function(req, res) {
+    TaskAssignment.find({ is_deleted: false }).populate('task')
+        .then(taskAssignment => {
+            res.json({ status: true, data: taskAssignment });
+        })
+        .catch(err => {
+            res.json({ status: false, data: 'Invalid Request!' });
+        })
 };
 
 exports.addATaskAssignment = function(req, res) {
