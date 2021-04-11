@@ -9,4 +9,8 @@ module.exports = function(app) {
 
     //get ta agent
     app.route('/ta-agents').get(user.getMaxUser);
+
+    app.route('/users/:id').get(user.findOne);
+
+    app.route('/users/:id').get(user.updateAUser);
 }

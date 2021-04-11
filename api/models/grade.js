@@ -8,8 +8,13 @@ const gradeSchema = mongoose.Schema({
   email: { type: String, required: true },
 
 
-  //engMark: { type: String, required: true },
-  //sciMark: { type: Number, required: true },
+  first_name: { type: String, required: true },
+  last_name: { type: String, required: true },
+  mobile_number: { type: Number, required: true },
+  city: { type: String, required: true },
+  district: { type: String, required: true },
+  province: { type: String, required: true },
+  bio: { type: String, required: true },
   agentType: { type: String, required: true } //agenttype
 });
 
