@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const gradeSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   //userid
   userid: { type: String, required: true },
 
   //email
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique:true },
 
 
   first_name: { type: String, required: true },
@@ -15,7 +17,32 @@ const gradeSchema = mongoose.Schema({
   district: { type: String, required: true },
   province: { type: String, required: true },
   bio: { type: String, required: true },
-  agentType: { type: String, required: true } //agenttype
+  role: { type: String, required: true }, //agenttype
+  password: {
+    type: String,
+    required: true,
+    minlength: [4, 'Password must be atleast 4 character long']
+},
+  saltSecret: String
 });
 
-module.exports = mongoose.model("Grade", gradeSchema);
+// Events
+userSchema.pre('save', function (next) {
+  bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(this.password, salt, (err, hash) => {
+          this.password = hash;
+          this.saltSecret = salt;
+          next();
+      });
+  });
+});
+
+userSchema.methods.generateJwt = function () {
+  return jwt.sign({ _id: this._id},
+      process.env.JWT_SECRET,
+  {
+      expiresIn: process.env.JWT_EXP
+  });
+}
+
+module.exports = mongoose.model("User", userSchema);
