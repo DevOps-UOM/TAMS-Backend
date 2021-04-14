@@ -1,0 +1,23 @@
+### authenticate user
+POST http://localhost:3000/authenticate
+Content-Type: application/json
+
+{
+    "email": "ryann@gmail.com",
+    "password": "Admin"
+}
+
+
+### register user
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "id": "ta1008",
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "johndoe@gmail.com",
+    "password": "Admin",
+    "role": "User"
+}
