@@ -2,32 +2,31 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-var userSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
-    first_name: {
-        type: String
-    },
-    lastname: {
-        type: String
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
+// 
+
+const userSchema = mongoose.Schema({
+    //userid
+    userid: { type: String, required: true },
+  
+    //email
+    email: { type: String, required: true, unique:true },
+  
+  
+    first_name: { type: String, required: true },
+    last_name: { type: String, required: true },
+    mobile_number: { type: Number, required: true },
+    city: { type: String, required: true },
+    district: { type: String, required: true },
+    province: { type: String, required: true },
+    bio: { type: String, required: true },
+    role: { type: String, required: true }, //agenttype
     password: {
-        type: String,
-        required: true,
-        minlength: [4, 'Password must be atleast 4 character long']
-    },
-    // role: {
-    //     type: Role.role,
-    //     required: true
-    // },
+      type: String,
+      required: true,
+      minlength: [4, 'Password must be atleast 4 character long']
+  },
     saltSecret: String
-});
+  });
 
 // Custom validation for email
 userSchema.path('email').validate((val) => {
@@ -64,4 +63,6 @@ userSchema.methods.generateJwt = function () {
 // const User = mongoose.model('User',userSchema);
 // module.exports = User;
 
-mongoose.model('User', userSchema);
+// mongoose.model('User', userSchema);
+
+module.exports = mongoose.model("User", userSchema);
