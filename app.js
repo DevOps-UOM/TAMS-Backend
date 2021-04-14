@@ -43,9 +43,8 @@ var leaves = require('./api/models/leavesModel');
 var Grade = require('./api/models/grade');
 var TaskAssignment = require('./api/models/IsAssignToModel');
 var Task = require('./api/models/TasksModel');
-
-
 var User = require('./api/models/UserModel');
+
 mongoose.Promise = global.Promise;
 
 const connectDB = async() => {
