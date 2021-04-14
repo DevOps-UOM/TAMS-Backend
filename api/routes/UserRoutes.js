@@ -4,9 +4,13 @@ module.exports = function(app) {
     //create user
     app.route('/users').post(user.createUser);
 
-    //get user
-    app.route('/marks').get(user.getUser);
+    //get ca agent
+    app.route('/ca-agents').get(user.getUser);
 
-    //get max user
-    app.route('/marks/max').get(user.getMaxUser);
+    //get ta agent
+    app.route('/ta-agents').get(user.getMaxUser);
+
+    app.route('/users/:id').get(user.findOne);
+
+    app.route('/users/:id').get(user.updateAUser);
 }
