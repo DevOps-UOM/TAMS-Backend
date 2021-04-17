@@ -21,7 +21,7 @@ app.use('/api', rtsIndex);
 
 app.use(cors());
 
-app.use(rtsIndex);
+// app.use(rtsIndex);
 
 app.use((err, req, res, next) => {
     if (err.name == 'ValidationError') {
