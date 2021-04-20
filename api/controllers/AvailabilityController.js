@@ -13,18 +13,23 @@ exports.createAvailability = function(req, res) {
 };
 
 exports.getAllAvailability = function(req, res) {
-    Availability.find({}).populate('task')
-    .then(availabilities => {
-        res.json({ status: true, data: availabilities });
+    Availability.find({}).populate('task').populate({
+        path: 'cust_id',
+        populate: {
+            path: 'default_agent_id',
+            model: 'User'
+        }
     })
-    .catch(err => {
-        res.json({ status: false, data: err.message });
-    })
-    // Availability.find({}, function(err, availabilities) {
-    //     if (err) {
-    //         res.json({ status: false, data: 'Invalid Request!' });
-    //     }
-    //     res.json({ status: true, data: availabilities });
-    // }).populate('task');
+        .then(availabilities => {
+            res.json({ status: true, data: availabilities });
+        })
+        .catch(err => {
+            res.json({ status: false, data: err.message });
+        })
+        // Availability.find({}, function(err, availabilities) {
+        //     if (err) {
+        //         res.json({ status: false, data: 'Invalid Request!' });
+        //     }
+        //     res.json({ status: true, data: availabilities });
+        // }).populate('task');
 };
-
