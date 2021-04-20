@@ -13,7 +13,13 @@ exports.createAvailability = function(req, res) {
 };
 
 exports.getAllAvailability = function(req, res) {
-    Availability.find({}).populate('task')
+    Availability.find({}).populate('task').populate({
+        path: 'cust_id',
+        populate: {
+            path: 'default_agent_id',
+            model: 'User'
+        }
+    })
         .then(availabilities => {
             res.json({ status: true, data: availabilities });
         })

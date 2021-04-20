@@ -48,7 +48,10 @@ var CustomerSchema = new Schema({
     },
     area: String,
     is_deleted: Boolean,
-    default_agent_id: String
+    default_agent_id: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    }
 });
 
 module.exports = mongoose.model('Customer', CustomerSchema);

@@ -3,13 +3,21 @@ var mongoose = require('mongoose');
 Customer = mongoose.model('Customer');
 
 exports.listAllCustomers = function(req, res) {
-    Customer.find({}, function(err, customer) {
-        if (err) {
-            res.json({ status: false, data: 'Invalid Request!' });
-        }
+    // Customer.find({}, function(err, customer) {
+    //     if (err) {
+    //         res.json({ status: false, data: 'Invalid Request!' });
+    //     }
 
+    //     res.json({ status: true, data: customer });
+    // });
+
+    Customer.find({}).populate('default_agent_id')
+    .then(customer => {
         res.json({ status: true, data: customer });
-    });
+    })
+    .catch(err => {
+        res.json({ status: false, data: err.message });
+    })
 };
 
 exports.addACustomer = function(req, res) {
