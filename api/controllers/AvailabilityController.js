@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 Availability = mongoose.model('Availability');
+Leaves = mongoose.model('leaves');
 
 exports.createAvailability = function(req, res) {
     let availability = new Availability(req.body);
@@ -22,8 +23,18 @@ exports.getAllAvailability = function(req, res) {
                 model: 'User'
             }
     })
-        .then(availabilities => {
-            res.json({ status: true, data: availabilities });
+        .then(async availabilities => {
+            let leaves = []
+            // let availabilities_mapped = availabilities.map(async (m) => {
+            //     m.leave = await Leaves.find({travel_agent: m.cust_id.default_agent_id._id})
+            //     return m
+            // })
+            let availabilities_mapped = await Promise.all(availabilities.map(async (m) => {
+                m.leave = await Leaves.find({travel_agent: m.cust_id.default_agent_id._id})
+                return m
+            }));
+            console.log(availabilities_mapped)
+            await res.json({ status: true, data: availabilities_mapped });
         })
         .catch(err => {
             res.json({ status: false, data: err.message });
