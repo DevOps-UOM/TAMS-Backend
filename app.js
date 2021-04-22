@@ -44,6 +44,7 @@ var leaves = require('./api/models/leavesModel');
 var TaskAssignment = require('./api/models/IsAssignToModel');
 var Task = require('./api/models/TasksModel');
 var User = require('./api/models/UserModel');
+var Assign= require('./api/models/AssignModel')
 
 mongoose.Promise = global.Promise;
 
@@ -65,6 +66,7 @@ var routeleaves = require('./api/routes/leavesRoute');
 var userRoutes = require('./api/routes/UserRoutes');
 var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
 var routeTask = require('./api/routes/TasksRoute');
+var routeAssign= require('./api/routes/AssignRoute')
 
 
 routeItinerary(app);
@@ -74,6 +76,7 @@ routeleaves(app);
 userRoutes(app);
 routeTaskAssignment(app);
 routeTask(app);
+routeAssign(app);
 app.use(rtsIndex);
 
 
