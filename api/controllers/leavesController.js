@@ -13,11 +13,19 @@ exports.createleaves = function(req, res) {
 };
 
 exports.getAllleaves = function(req, res) {
-    leaves.find({}, function(err, leaves) {
-        if (err) {
-            res.json({ status: false, data: 'Invalid Request!' });
-        }
-        res.json({ status: true, data: leaves });
-    });
+    // leaves.find({}, function(err, leaves) {
+    //     if (err) {
+    //         res.json({ status: false, data: 'Invalid Request!' });
+    //     }
+    //     res.json({ status: true, data: leaves });
+    // });
+    leaves.find({})
+        .populate('travel_agent')
+        .then(availabilities => {
+            res.json({ status: true, data: availabilities });
+        })
+        .catch(err => {
+            res.json({ status: false, data: err.message });
+        })
 };
 
