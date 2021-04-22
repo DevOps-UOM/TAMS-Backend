@@ -45,7 +45,7 @@ exports.listItinerariesByDate = (async function(req, res) {
             new_travel_itinerary.push({
                 itinerary_id: travel_itenery[k]._id,
                 date: travel_itenery[k].date,
-                travel_agent: travel_agent,
+                travel_agent: travel_agent[0],
                 customers: optimized_cust_array
             })
 
