@@ -21,10 +21,14 @@ exports.createAssign = (async function(req, res) {
         for (var i = 0; i < req.body.length; i++) {
             var assign = new Assign(req.body[i]);
             //console.log(req.body)
-            var checkCollection = await Assign.find({ iti_date: req.body[i].iti_date, customer: req.body[i].customer });
+            var checkCollection = await Assign.find({ iti_date: req.body[i].iti_date, customer: req.body[i].customer }).populate('travel_agent').populate('customer');
             //console.log(checkCollection)
             if (checkCollection.length != 0) {
-                await Assign.findOneAndUpdate({ date: req.body[i].iti_date, customer: req.body[i].customer }, req.body[i], { new: true });
+                var removed_itinerary = await Itinerary.find({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid })
+                await Itinerary.remove({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid })
+                console.log(removed_itinerary);
+                await TaskAssignment.remove({ cust_id: checkCollection[0].customer.cust_id, itinerary_id: removed_itinerary[0]._id })
+                await Assign.findOneAndUpdate({ iti_date: req.body[i].iti_date, customer: req.body[i].customer }, req.body[i], { new: true });
                 console.log("Assign collection Updated");
             } else {
                 await assign.save(function(err, ass) {});
@@ -35,7 +39,7 @@ exports.createAssign = (async function(req, res) {
         }
         var uniqueTAArr = [...new Set(taArr)]
         var custDetArr;
-        //console.log(req.body)
+        console.log(req.body)
         for (var i = 0; i < uniqueTAArr.length; i++) {
             custDetArr = await Assign.find({ iti_date: req.body[0].iti_date, travel_agent: uniqueTAArr[i] })
                 .populate('customer')
