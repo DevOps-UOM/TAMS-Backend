@@ -18,7 +18,7 @@ const AssignSchema = new Schema({
         required: true
     }
 
-}, {timestamps: true});
+}, { timestamps: true });
 
 
 module.exports = mongoose.model('Assign', AssignSchema);
