@@ -53,8 +53,7 @@ userSchema.methods.verifyPassword = function (password) {
 };
 
 userSchema.methods.generateJwt = function () {
-    const { password, saltSecret, ...userData } = this._doc;
-    return jwt.sign(userData,
+    return jwt.sign({ _id: this._id},
         process.env.JWT_SECRET,
     {
         expiresIn: process.env.JWT_EXP
