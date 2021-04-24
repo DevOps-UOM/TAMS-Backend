@@ -13,19 +13,23 @@ var leavesSchema = new Schema({
     //     type: String,
     //     required: 'Enter TA ID'
     // },
-    leave_date: {
-        type: Object,
+    // leave_date: {
+    //     type: Object,
+    //     required: true
+    // },
+    start_date: {
+        type: Date,
         required: true
     },
-    // pod: {
-    //     type: String,
-    // },
-    //
+    end_date: {
+        type: Date,
+        required: true
+    },
     note: {
         type: String
     },
     
-});
+},{timestamps: true});
 
 
 module.exports = mongoose.model('leaves', leavesSchema);

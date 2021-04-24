@@ -1,5 +1,6 @@
 require('./api/config/config');
 require('./api/config/passportConfig');
+require('./api/shared/user.service');
 
 var express = require('express');
 var mongoose = require('mongoose');
@@ -44,9 +45,19 @@ var leaves = require('./api/models/leavesModel');
 var TaskAssignment = require('./api/models/IsAssignToModel');
 var Task = require('./api/models/TasksModel');
 var User = require('./api/models/UserModel');
-var Assign= require('./api/models/AssignModel')
+
+var Assign= require('./api/models/AssignModel');
+var userService = require('./api/shared/user.service');
+
 
 mongoose.Promise = global.Promise;
+
+const schedule = require('node-schedule');
+
+const job = schedule.scheduleJob('*/1 * * * *', function(){
+    // userService.getAgentLeaveStatusById("TA002")
+    // console.log('The answer to life, the universe, and everything!');
+});
 
 const connectDB = async() => {
     await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -95,6 +106,7 @@ app.listen(port);
 //         console.log("Node app is running at localhost:" + app.get('port'));
 //     })
 console.log("TAMS Restful API server started on :" + port);
+
 
 /*
 const MongoClient = require('mongodb').MongoClient;
