@@ -67,7 +67,7 @@ var userRoutes = require('./api/routes/UserRoutes');
 var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
 var routeTask = require('./api/routes/TasksRoute');
 var routeAssign= require('./api/routes/AssignRoute')
-
+var showLocationRoute = require('./api/routes/ShowLocationRoute')
 
 routeItinerary(app);
 routeCustomer(app);
@@ -77,6 +77,7 @@ userRoutes(app);
 routeTaskAssignment(app);
 routeTask(app);
 routeAssign(app);
+showLocationRoute(app)
 app.use(rtsIndex);
 
 

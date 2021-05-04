@@ -13,6 +13,7 @@ router.get('/userprofile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 router.get('/:id', jwtHelper.verifyJwtToken, authorize(), ctrlUser.getById);
 router.get('/resetpassword', jwtHelper.verifyJwtToken, ctrlUser.resetPassword);
 
+
 module.exports = router;
 
 

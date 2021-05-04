@@ -85,6 +85,7 @@ exports.startShowLocation = function(req, res) {
     console.log("sharing location started")
 
     let tempId = makeid();
+    // http://localhost:4200/showAgentLocation/${random_key}
 
     var mailOptions = {
         from: 'tams.uom@gmail.com',
