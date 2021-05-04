@@ -95,7 +95,7 @@ exports.updateAItinerary = function(req, res) {
 };
 
 exports.deleteAItinerary = function(req, res) {
-    Itinerary.remove({ date: req.params.date, travel_agent_id: req.params.taid }, function(err, itinerary) {
+    Itinerary.deleteOne({ date: req.params.date, travel_agent_id: req.params.taid }, function(err, itinerary) {
         if (err) {
             res.json({ status: false, data: 'Unable to Delete!' });
         }

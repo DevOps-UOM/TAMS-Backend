@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema({
     province: { type: String, required: true },
     bio: { type: String, required: true },
     role: { type: String, required: true }, //agenttype
+    // on_leave: {type: Boolean, required: true },
     password: {
       type: String,
       required: true,

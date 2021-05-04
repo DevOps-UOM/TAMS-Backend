@@ -14,6 +14,6 @@ module.exports = function(app) {
 
     app.route('/users/:id').get(user.updateAUser);
 
-    app.route('/abc/:id').get(user.getAgentLeaveStatusById)
+    app.route('/getAgentLeaveStatus/:id').get(user.getAgentLeaveStatusById)
 
 }

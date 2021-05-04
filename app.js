@@ -60,7 +60,7 @@ const job = schedule.scheduleJob('*/1 * * * *', function(){
 });
 
 const connectDB = async() => {
-    await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex: true });
     console.log("db connected");
 }
 connectDB();
@@ -77,7 +77,7 @@ var routeleaves = require('./api/routes/leavesRoute');
 var userRoutes = require('./api/routes/UserRoutes');
 var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
 var routeTask = require('./api/routes/TasksRoute');
-var routeAssign= require('./api/routes/AssignRoute')
+var routeAssign= require('./api/routes/AssignRoute');
 
 
 routeItinerary(app);

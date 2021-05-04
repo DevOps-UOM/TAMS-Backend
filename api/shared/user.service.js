@@ -46,27 +46,57 @@ async function getById(id) {
 }
 
 async function getAgentLeaveStatusById(id){
-    const today = new Date();
-    const user= _User.find({ userid: id }, (err, doc) => {
-        const _user = doc;
-        const leaves = _Leave.find({
-            $and: [ 
-                {travel_agent : _user},
-                {start_date : {
-                    $gte : today
-                }},
-                {end_date : {
-                    $lte : today
-                }}
-            ]
-        },(err1,doc1) => {
-            console.log(doc1);
-        });
-        // console.log(userDocID);
-    });
-    // const temp = leaves.find(x => x.userid === user && x.leave_date.start_date >= today && x.leave_date.end_date <= today );
-    // console.log(temp);
-    return null;
-   
 
+    const today = new Date();
+    await _User.find({ userid : id },(err,users)=> {
+        if(err) throw err;
+        return users.length;
+        // users.count({},function(err,noOfDocs) {
+        //     if(err) throw err;
+        //     if(noOfDocs >= 1) {
+        //         console.log(noOfDocs);
+        //        user.findOne({}, (err, res) => {
+        //            if(err) throw err;
+        //            console.log(res);
+        //             return res;
+        //        });
+        //     } else {
+        //         return null;
+        //     }
+        // });
+    });
+    
+
+
+    // return null;
+    // if(len >= 1) {
+    //     console.log("called");
+    //     const userDocID = user;
+    //     return userDocID;
+    // } else {
+    //     return null;
+    // }
+    // return null;
+
+    // const leaves = _Leave.find({
+    //         $and: [ 
+    //             { travel_agent : _user},
+    //             { start_date : {
+    //                     $gte : today
+    //                 }
+    //             },
+    //             { end_date : {
+    //                     $lte : today
+    //                 }
+    //             }
+    //         ]
+    //     },(err) => {
+    //         console.log(err);
+    //     });
+       
+    //const leaves = _Leave.find();
+    // console.log(" ====== ", leaves);   
+        //const temp = leaves.find(x => x.userid === user && x.leave_date.start_date >= today && x.leave_date.end_date <= today );
+    //console.log(temp);
+    // return leaves;
 }
