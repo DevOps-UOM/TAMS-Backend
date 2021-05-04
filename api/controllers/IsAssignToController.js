@@ -1,6 +1,18 @@
 var mongoose = require("mongoose");
+var nodemailer = require('nodemailer');
+
 
 TaskAssignment = mongoose.model('task_assignment');
+Customer = mongoose.model('Customer')
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'tams.uom@gmail.com',
+        pass: 'Tams1234'
+    }
+});
+
 
 // exports.listAllTaskAssignments = function(req, res) {
 //     TaskAssignment.find({ is_deleted: false }, function(err, taskAssignment) {
@@ -71,11 +83,30 @@ exports.getASingleTaskAssignment = function(req, res) {
 
 exports.startShowLocation = function(req, res) {
     console.log("sharing location started")
-    TaskAssignment.findOneAndUpdate({ cust_id: req.params.cust_id, itinerary_id: req.params.itinerary_id }, { urlId: makeid() }, { multi: true }, function(err, taskAssignment) {
+
+    let tempId = makeid();
+
+    var mailOptions = {
+        from: 'tams.uom@gmail.com',
+        to: 'johanpriyasanka@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text: tempId
+    };
+
+    TaskAssignment.findOneAndUpdate({ cust_id: req.params.cust_id, itinerary_id: req.params.itinerary_id }, { urlId: tempId }, { multi: true }, function(err, taskAssignment) {
         if (err) {
             res.json({ status: false, data: 'Unable to Update!' });
         }
         //console.log(taskAssignment);
+
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+
         console.log("Location shared")
         res.json({ status: true, data: taskAssignment });
     })
