@@ -6,6 +6,7 @@ module.exports = function(app) {
     //get all
     app.route('/enableLocation').post(enableLocation.enableShowLocation);
     app.route('/checkValidity/:random_key').get(enableLocation.validateRequest);
+    app.route('/expired/:random_key').get(enableLocation.expireKey);
 
 
 }
