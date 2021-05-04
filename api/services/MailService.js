@@ -24,13 +24,11 @@ exports.sendShowLocationMail = async function (mailData) {
     text: tempId,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent : " + info.response);
-    }
-  });
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Error occured in  mail sending");
+  }
 
   //   TaskAssignment.findOneAndUpdate(
   //     { cust_id: req.params.cust_id, itinerary_id: req.params.itinerary_id },

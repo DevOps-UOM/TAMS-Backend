@@ -34,7 +34,7 @@ exports.enableShowLocation = async function (req, res) {
 
   await sendShowLocationMail({
     random_key,
-    receiver_mail: "bhagyafdo97@gmail.com",
+    receiver_mail: "bhagyafdo97@gmail.com", // change with email variable in line 33
   });
 
   console.log(customerDbRecord);
