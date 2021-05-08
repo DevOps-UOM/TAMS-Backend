@@ -16,6 +16,6 @@ module.exports = function(app) {
     //delete Itinerary
     //app.route('/taskAssignment/:itinerary_id/:cust_id').put(taskAssignment.removeATaskAssignment);
 
-    app.route('/taskAssignment/rating/:itinerary_id/:cust_id').put(taskAssignment.startShowLocation);
+    //app.route('/taskAssignment/rating/:itinerary_id/:cust_id').put(taskAssignment.startShowLocation);
 
 }

@@ -30,11 +30,12 @@ var TaskAssignment = new Schema({
     queue_number: {
         type: Number,
         default: 100
-    },
-    urlId: {
-        type: String,
-        unique: true
     }
+    // ,
+    // urlId: {
+    //     type: String,
+    //     unique: true
+    // }
 });
 
 module.exports = mongoose.model('task_assignment', TaskAssignment);
