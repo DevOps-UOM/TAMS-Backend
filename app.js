@@ -5,10 +5,12 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const uri = "mongodb+srv://dbAdmin:LGPxREeweWiVjnPM@clustertams.ovlfe.mongodb.net/TRAVELING-AGENTS-MANAGEMENT-SYSTEM?retryWrites=true&w=majority";
 
 const rtsIndex = require('./api/routes/IndexRoute');
+// app.use('/api/resetpassword', auth);
 
 var app = express();
 
@@ -17,6 +19,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(passport.initialize());
 app.use('/api', rtsIndex);
+app.use(cookieParser());
 
 
 app.use(cors());
