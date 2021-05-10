@@ -6,6 +6,9 @@ const ShowLocation = mongoose.model("showLocationSchema");
 require("./../models/CustomerModel");
 const Customer = mongoose.model("Customer");
 
+Itinerary = mongoose.model('Travel_itinerary');
+TaskAssignment = mongoose.model('task_assignment')
+
 var rand = require("random-key");
 const { sendShowLocationMail } = require("../services/MailService.js");
 
@@ -139,4 +142,53 @@ exports.isExpired = async function(req, res) {
         agent_id: existingRecord.travel_agent_id,
         cust_id: existingRecord.customer_id
     });
+}
+
+exports.rateTA = async function(req, res) {
+    // const date = new Date();
+    const date = new Date("2021-04-05");
+    console.log(date);
+
+    const uniqueKey = req.body.uniqueKey;
+    const rate = req.body.rate;
+
+    const dbRecord = await ShowLocation.find({ random_key: uniqueKey });
+
+    if (!dbRecord && dbRecord.length == 0) {
+        return res
+            .status(404)
+            .send({ status: false, msg: `No record found for key ${random_key}` });
+    }
+
+    const existingRecord = dbRecord[0];
+
+    const travel_agent_id = existingRecord.travel_agent_id;
+    const cust_id = existingRecord.customer_id
+
+    if (existingRecord.expired) {
+        return res.status(400).send({ status: false, msg: `key : ${random_key} is expired` });
+    }
+
+    const ItineraryRecord = await Itinerary.find({ travel_agent_id, date })
+
+    if (!existingRecord && existingRecord.length == 0) {
+        return res
+            .status(404)
+            .send({ status: false, msg: `No record found for travel agent id ${travel_agent_id} and for date ${date}` });
+    }
+
+    const itinerary_id = ItineraryRecord[0]._id;
+
+    TaskAssignment.findOneAndUpdate({ itinerary_id, cust_id }, { $set: { rate } }, { new: true }, function(err, taskAssign) {
+        if (err) {
+            res.json({ status: false, data: 'Unable to Update!' });
+        }
+
+        res.json({ status: true, data: taskAssign });
+    })
+
+
+
+
+
 }

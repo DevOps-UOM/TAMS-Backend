@@ -10,4 +10,6 @@ module.exports = function(app) {
 
     app.route('/isExpired/:ta_id/:cust_id').get(enableLocation.isExpired);
 
+    app.route('/rating').put(enableLocation.rateTA)
+
 }
