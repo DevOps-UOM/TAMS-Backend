@@ -13,6 +13,7 @@ var TaskAssignment = new Schema({
     },
     rate: {
         type: Number,
+        default: null
     },
     task: [{
         type: mongoose.Schema.ObjectId,

@@ -16,7 +16,7 @@ Availability = mongoose.model('Availability');
 
 exports.createAssign = (async function(req, res) {
     try {
-        //console.log(req.body)
+        console.log(req.body)
         const taArr = []
         for (var i = 0; i < req.body.length; i++) {
             var assign = new Assign(req.body[i]);
@@ -98,7 +98,7 @@ exports.createAssign = (async function(req, res) {
         res.json({ status: true, data: "Assign successful" })
     } catch (error) {
         console.log(error);
-        res.json({ status: true, data: "Error in assign" })
+        res.json({ status: false, data: "Error in assign" })
     }
 })
 

@@ -53,7 +53,7 @@ exports.listItinerariesByDate = (async function(req, res) {
 
         res.json({ status: true, data: new_travel_itinerary });
     } catch (error) {
-        console.log("Error from backend");
+        console.log("list itinerary by date error");
     }
 })
 
@@ -117,6 +117,7 @@ exports.deleteAItinerary = function(req, res) {
 exports.getAllocatedCustomers = (async function(req, res) {
     try {
         const travel_itenery = await Itinerary.find({ date: req.params.date, travel_agent_id: req.params.taid });
+        //console.log(travel_itenery);
         const customers_array = travel_itenery[0].assigned_customer_id;
         const pending_customers = await TaskAssignment.find({ cust_id: { $in: customers_array }, itinerary_id: travel_itenery[0]._id }).sort({ queue_number: 1 });
 
@@ -141,13 +142,15 @@ exports.getAllocatedCustomers = (async function(req, res) {
         //console.log(pending_customer_array);
         res.json({ status: true, data: optimized_cust_array });
     } catch (error) {
-        console.log("Error from backend");
+        console.log("Allocated customer fetching error");
     }
 })
 
 exports.getAllocatedPendingCustomers = (async function(req, res) {
     try {
+        //console.log(req.body)
         const travel_itenery = await Itinerary.find({ date: req.params.date, travel_agent_id: req.params.taid });
+        //console.log(travel_itenery)
         const customers_array = travel_itenery[0].assigned_customer_id;
         const pending_customers = await TaskAssignment.find({ cust_id: { $in: customers_array }, itinerary_id: travel_itenery[0]._id, status: "Pending" }).sort({ queue_number: 1 });
 
@@ -160,6 +163,8 @@ exports.getAllocatedPendingCustomers = (async function(req, res) {
 
         const relevant_customers = await Customers.find({ cust_id: { $in: pending_customer_array }, is_deleted: false });
 
+        console.log(relevant_customers)
+        console.log(pending_customer_array);
         let optimized_cust_array = [];
 
         for (var i = 0; i < pending_customer_array.length; i++) {
@@ -172,10 +177,10 @@ exports.getAllocatedPendingCustomers = (async function(req, res) {
         }
 
         //console.log(optimized_cust_array);
-        // console.log(pending_customer_array);
+
         //console.log(pending_customer_array);
         res.json({ status: true, data: optimized_cust_array });
     } catch (error) {
-        console.log("Error from backend");
+        console.log("Allocated pending customer fetching error");
     }
 })
