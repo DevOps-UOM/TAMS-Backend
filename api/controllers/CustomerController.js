@@ -66,16 +66,13 @@ exports.deleteACustomer = function(req, res) {
 };
 
 exports.updateACustomer = function(req, res) {
-//     if (!ObjectId.isValid(req.params.id))
-//         return res.status(400).send(`No record with given id : ${req.params.id}`);
+    // if (!mongoose.cust_id.isValid(req.params.id))
+    //     return res.status(400).json(`No record with given id : ${req.params.id}`);
 
     var customer = {
-        area: req.body.area,
-        cust_id: req.body.cust_id,
-        mobile_number: req.body.mobile_number,
-        //salary: req.body.salary,
+        ...req.body
     };
-    Customer.findOneAndUpdate(req.params.id, { $set: customer }, { new: true }, (err, doc) => {
+    Customer.findOneAndUpdate({cust_id: req.params.id}, { $set: customer }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in Employee Update :' + JSON.stringify(err, undefined, 2)); }
     });
