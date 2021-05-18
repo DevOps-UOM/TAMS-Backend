@@ -12,24 +12,26 @@ exports.listAllCustomers = function(req, res) {
     // });
 
     Customer.find({}).populate('default_agent_id')
-    .then(customer => {
-        res.json({ status: true, data: customer });
-    })
-    .catch(err => {
-        res.json({ status: false, data: err.message });
-    })
+        .then(customer => {
+            res.json({ status: true, data: customer });
+        })
+        .catch(err => {
+            res.json({ status: false, data: err.message });
+        })
 };
 
 exports.addACustomer = function(req, res) {
     var newCustomer = new Customer(req.body);
 
     newCustomer.save(function(err, customer) {
-
+        console.log("customer init")
     });
     Customer.find({}, function(err, customer) {
+
         if (err) {
             res.json({ status: false, data: 'Unable to Create!' });
         }
+        console.log("added")
 
         res.json({ status: true, data: customer });
     });
@@ -66,8 +68,8 @@ exports.deleteACustomer = function(req, res) {
 };
 
 exports.updateACustomer = function(req, res) {
-//     if (!ObjectId.isValid(req.params.id))
-//         return res.status(400).send(`No record with given id : ${req.params.id}`);
+    //     if (!ObjectId.isValid(req.params.id))
+    //         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
     var customer = {
         area: req.body.area,
@@ -76,8 +78,7 @@ exports.updateACustomer = function(req, res) {
         //salary: req.body.salary,
     };
     Customer.findOneAndUpdate(req.params.id, { $set: customer }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in Employee Update :' + JSON.stringify(err, undefined, 2)); }
+        if (!err) { res.send(doc); } else { console.log('Error in Employee Update :' + JSON.stringify(err, undefined, 2)); }
     });
 };
 

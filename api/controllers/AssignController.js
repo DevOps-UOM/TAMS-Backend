@@ -25,7 +25,9 @@ exports.createAssign = (async function(req, res) {
             //console.log(checkCollection)
             if (checkCollection.length != 0) {
                 var removed_itinerary = await Itinerary.find({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid })
-                await Itinerary.remove({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid })
+
+                await Itinerary.findOneAndUpdate({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid }, { $pull: { assigned_customer_id: checkCollection[0].customer.cust_id } })
+                    //await Itinerary.remove({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid })
                 console.log(removed_itinerary);
                 await TaskAssignment.remove({ cust_id: checkCollection[0].customer.cust_id, itinerary_id: removed_itinerary[0]._id })
                 await Assign.findOneAndUpdate({ iti_date: req.body[i].iti_date, customer: req.body[i].customer }, req.body[i], { new: true });

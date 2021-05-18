@@ -181,6 +181,7 @@ exports.getAllocatedPendingCustomers = (async function(req, res) {
         //console.log(pending_customer_array);
         res.json({ status: true, data: optimized_cust_array });
     } catch (error) {
+        res.json({ status: false, data: "Allocated pending customer fetching error" });
         console.log("Allocated pending customer fetching error");
     }
 })
