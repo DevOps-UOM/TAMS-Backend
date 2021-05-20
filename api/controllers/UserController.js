@@ -7,7 +7,7 @@ const userService = require('../shared/user.service');
 const authorize = require('../shared/authorize');
 const Role = require('../shared/role');
 
-//Load all your models
+//Load all models
 require('./../models/UserModel.js');
 const User = mongoose.model('User');
 

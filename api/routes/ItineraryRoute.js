@@ -21,6 +21,7 @@ module.exports = function(app) {
 
 
     app.route('/itineraries/allocated_customers/:date/:taid').get(itineraries.getAllocatedCustomers);
+    
 
     app.route('/itineraries/allocated_pending_customers/:date/:taid').get(itineraries.getAllocatedPendingCustomers);
 }

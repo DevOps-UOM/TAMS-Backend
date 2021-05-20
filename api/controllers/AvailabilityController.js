@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 Availability = mongoose.model('Availability');
 Leaves = mongoose.model('leaves');
 
-exports.createAvailability = function(req, res) {
+exports.
+createAvailability = function(req, res) {
     let availability = new Availability(req.body);
     availability.save(function(err, availability) {
         if (err) {
@@ -33,7 +34,7 @@ exports.getAllAvailability = function(req, res) {
                 m.leave = await Leaves.find({travel_agent: m.cust_id.default_agent_id._id})
                 return m
             }));
-            console.log(availabilities_mapped)
+            // console.log(availabilities_mapped)
             await res.json({ status: true, data: availabilities_mapped });
         })
         .catch(err => {
