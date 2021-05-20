@@ -32,7 +32,7 @@ app.use((err, req, res, next) => {
 });
 
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 // app.use(express.static(path.join(__dirname, 'public')));
 
@@ -44,7 +44,7 @@ var leaves = require('./api/models/leavesModel');
 var TaskAssignment = require('./api/models/IsAssignToModel');
 var Task = require('./api/models/TasksModel');
 var User = require('./api/models/UserModel');
-var Assign= require('./api/models/AssignModel')
+var Assign = require('./api/models/AssignModel')
 
 mongoose.Promise = global.Promise;
 
@@ -66,7 +66,7 @@ var routeleaves = require('./api/routes/leavesRoute');
 var userRoutes = require('./api/routes/UserRoutes');
 var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
 var routeTask = require('./api/routes/TasksRoute');
-var routeAssign= require('./api/routes/AssignRoute')
+var routeAssign = require('./api/routes/AssignRoute')
 var showLocationRoute = require('./api/routes/ShowLocationRoute')
 
 routeItinerary(app);
@@ -90,12 +90,10 @@ app.use(function(req, res) {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })
 
-app.listen(port);
+app.listen(port, function() {
+    console.log("Express server listening");
+});
 
-// app.listen(port, '0.0.0.0', function() {
-//         console.log("Node app is running at localhost:" + app.get('port'));
-//     })
-console.log("TAMS Restful API server started on :" + port);
 
 /*
 const MongoClient = require('mongodb').MongoClient;
