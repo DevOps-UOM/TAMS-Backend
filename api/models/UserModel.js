@@ -24,7 +24,7 @@ const userSchema = mongoose.Schema({
       type: String,
       required: true,
       minlength: [4, 'Password must be atleast 4 character long']
-  },
+    },
     saltSecret: String
   });
 

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 //Load all your models
 require('./../models/UserModel.js');
+require('./../models/leavesModel');
 var User = mongoose.model('User');
 
 passport.use(
