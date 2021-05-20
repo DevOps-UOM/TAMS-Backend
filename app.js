@@ -11,74 +11,74 @@ const uri = "mongodb+srv://dbAdmin:LGPxREeweWiVjnPM@clustertams.ovlfe.mongodb.ne
 const rtsIndex = require('./api/routes/IndexRoute');
 
 var app = express();
-
-//middleware
-app.use(bodyParser.json());
-app.use(cors());
-app.use(passport.initialize());
-app.use('/api', rtsIndex);
-
-
-app.use(cors());
-
-// app.use(rtsIndex);
-
-app.use((err, req, res, next) => {
-    if (err.name == 'ValidationError') {
-        var valErrors = [];
-        Object.keys(err.errors).forEach(key => valErrors.push(err.errors[key].message));
-        res.status(422).send(valErrors)
-    }
-});
-
-
-const port = process.env.PORT || 3000;
-
-// app.use(express.static(path.join(__dirname, 'public')));
-
-var Itinerary = require('./api/models/ItineraryModel');
-var Customer = require('./api/models/CustomerModel');
-var Availability = require('./api/models/AvailabilityModel');
-var leaves = require('./api/models/leavesModel');
-//var Grade = require('./api/models/grade');
-var TaskAssignment = require('./api/models/IsAssignToModel');
-var Task = require('./api/models/TasksModel');
-var User = require('./api/models/UserModel');
-var Assign = require('./api/models/AssignModel')
-
-mongoose.Promise = global.Promise;
-
-const connectDB = async() => {
-    await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log("db connected");
-}
+//
+// //middleware
+// app.use(bodyParser.json());
+// app.use(cors());
+// app.use(passport.initialize());
+// app.use('/api', rtsIndex);
+//
+//
+// app.use(cors());
+//
+// // app.use(rtsIndex);
+//
+// app.use((err, req, res, next) => {
+//     if (err.name == 'ValidationError') {
+//         var valErrors = [];
+//         Object.keys(err.errors).forEach(key => valErrors.push(err.errors[key].message));
+//         res.status(422).send(valErrors)
+//     }
+// });
+//
+//
+// const port = process.env.PORT || 3000;
+//
+// // app.use(express.static(path.join(__dirname, 'public')));
+//
+// var Itinerary = require('./api/models/ItineraryModel');
+// var Customer = require('./api/models/CustomerModel');
+// var Availability = require('./api/models/AvailabilityModel');
+// var leaves = require('./api/models/leavesModel');
+// //var Grade = require('./api/models/grade');
+// var TaskAssignment = require('./api/models/IsAssignToModel');
+// var Task = require('./api/models/TasksModel');
+// var User = require('./api/models/UserModel');
+// var Assign = require('./api/models/AssignModel')
+//
+// mongoose.Promise = global.Promise;
+//
+// const connectDB = async() => {
+//     await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+//     console.log("db connected");
+// }
 // connectDB();
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-
-
-var routeItinerary = require('./api/routes/ItineraryRoute');
-var routeCustomer = require('./api/routes/CustomerRoute');
-var routeAvailability = require('./api/routes/AvailabilityRoute');
-var routeleaves = require('./api/routes/leavesRoute');
-var userRoutes = require('./api/routes/UserRoutes');
-var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
-var routeTask = require('./api/routes/TasksRoute');
-var routeAssign = require('./api/routes/AssignRoute')
-var showLocationRoute = require('./api/routes/ShowLocationRoute')
-
-routeItinerary(app);
-routeCustomer(app);
-routeAvailability(app);
-routeleaves(app);
-userRoutes(app);
-routeTaskAssignment(app);
-routeTask(app);
-routeAssign(app);
-showLocationRoute(app)
-app.use(rtsIndex);
+//
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+//
+//
+//
+// var routeItinerary = require('./api/routes/ItineraryRoute');
+// var routeCustomer = require('./api/routes/CustomerRoute');
+// var routeAvailability = require('./api/routes/AvailabilityRoute');
+// var routeleaves = require('./api/routes/leavesRoute');
+// var userRoutes = require('./api/routes/UserRoutes');
+// var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
+// var routeTask = require('./api/routes/TasksRoute');
+// var routeAssign = require('./api/routes/AssignRoute')
+// var showLocationRoute = require('./api/routes/ShowLocationRoute')
+//
+// routeItinerary(app);
+// routeCustomer(app);
+// routeAvailability(app);
+// routeleaves(app);
+// userRoutes(app);
+// routeTaskAssignment(app);
+// routeTask(app);
+// routeAssign(app);
+// showLocationRoute(app)
+// app.use(rtsIndex);
 
 
 app.use(function(req, res) {
