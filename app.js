@@ -32,7 +32,7 @@ app.use((err, req, res, next) => {
 });
 
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3000;
 
 // app.use(express.static(path.join(__dirname, 'public')));
 

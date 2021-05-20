@@ -30,8 +30,5 @@
     "devDependencies": {
         "nodemon": "^2.0.6",
         "mquery": ">=3.2.3"
-    },
-    "engines": {
-        "node": "12.19.0"
     }
 }
