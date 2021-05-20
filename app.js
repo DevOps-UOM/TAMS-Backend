@@ -90,12 +90,10 @@ app.use(function(req, res) {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })
 
-console.log(port);
 
-app.listen(port, function() {
-    console.log("Express server listening");
-});
-
+app.listen(process.env.PORT || 8080, function () {
+    console.log("Application server is listening on %d in %s mode.", this.address().port, app.settings.env);
+})
 
 
 /*
