@@ -49,7 +49,8 @@ var CustomerSchema = new Schema({
     area: String,
     is_deleted: {
         type: Boolean,
-        default: false
+        default: false,
+        new: true
     },
     default_agent_id: {
         type: mongoose.Schema.ObjectId,
