@@ -90,6 +90,8 @@ app.use(function(req, res) {
 //     res.sendFile(path.join(__dirname, 'public/index.html'));
 // })
 
+console.log(port);
+
 app.listen(port, function() {
     console.log("Express server listening");
 });
