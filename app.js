@@ -52,7 +52,7 @@ const connectDB = async() => {
     await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("db connected");
 }
-connectDB();
+// connectDB();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
