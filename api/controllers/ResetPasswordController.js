@@ -3,6 +3,7 @@ const User = mongoose.model('User');
 const passwordResetToken = mongoose.model('passwordResetToken');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcryptjs');
 
 module.exports.ResetPassword = async (req, res) => {
   console.log(req.body.email);
@@ -54,6 +55,8 @@ module.exports.ResetPassword = async (req, res) => {
           pass: 'Admin_my@123'
         }
       });
+
+      console.log('http://localhost:4200/boards/response-reset-password/' + resettoken.resettoken);
       
       var mailOptions = {
         from: 'dushan.testlab@gmail.com',
@@ -67,8 +70,8 @@ module.exports.ResetPassword = async (req, res) => {
 
       transporter.sendMail(mailOptions, function (err, info) {
         if (err) {
-          return res.status(500).json ({ err: err });
           console.log(err);
+          return res.status(500).json ({ err: err, resetLink: 'http://localhost:4200/boards/response-reset-password/' + resettoken.resettoken });    
         } else {
           console.log('Email sent successfully' + info.res);
         }
@@ -102,10 +105,10 @@ module.exports.ValidPasswordToken = async (req, res) => {
           .json({ message: 'Invalid URL' });
         }
 
-        User.findOneAndUpdate({ _id: user._userId }).then(() => {
-        res.status(200).json({ message: 'Token verified successfully.' });
+        User.findOne({ _id: user._userId }).then(() => {
+          res.status(200).json({ message: 'Token verified successfully.' });
         }).catch((err) => {
-        return res.status(500).send({ msg: err.message });
+          return res.status(500).send({ msg: err.message });
         });
 }
 
@@ -126,26 +129,19 @@ module.exports.NewPassword = async (req, res) => {
                     .status(409)
                     .json({ message: 'User does not exist' });
                 }
-                return bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
+                
+                userEmail.password = req.body.newPassword;
+                userEmail.save(function (err) {
                   if (err) {
                     return res
                       .status(400)
-                      .json({ message: 'Error hashing password' });
+                      .json({ message: 'Password can not reset.' });
+                  } else {
+                    userToken.remove();
+                    return res
+                      .status(201)
+                      .json({ message: 'Password reset successfully' });
                   }
-                  userEmail.password = hash;
-                  userEmail.save(function (err) {
-                    if (err) {
-                      return res
-                        .status(400)
-                        .json({ message: 'Password can not reset.' });
-                    } else {
-                      userToken.remove();
-                      return res
-                        .status(201)
-                        .json({ message: 'Password reset successfully' });
-                    }
-        
-                  });
                 });
               });
         

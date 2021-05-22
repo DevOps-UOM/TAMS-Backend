@@ -37,6 +37,7 @@ userSchema.path('email').validate((val) => {
 
 // Events
 userSchema.pre('save', function (next) {
+    console.log('presave running');
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(this.password, salt, (err, hash) => {
             this.password = hash;
