@@ -22,18 +22,26 @@ exports.createAssign = (async function(req, res) {
             var assign = new Assign(req.body[i]);
             //console.log(req.body)
             var checkCollection = await Assign.find({ iti_date: req.body[i].iti_date, customer: req.body[i].customer }).populate('travel_agent').populate('customer');
-            //console.log(checkCollection)
+            console.log(checkCollection)
             if (checkCollection.length != 0) {
-                var removed_itinerary = await Itinerary.find({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid })
+                var removed_itinerary = await Itinerary.find({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid, assigned_customer_id: { $elemMatch: { $eq: checkCollection[0].customer.cust_id } } });
 
-                await Itinerary.findOneAndUpdate({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid }, { $pull: { assigned_customer_id: checkCollection[0].customer.cust_id } })
-                    //await Itinerary.remove({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid })
-                console.log(removed_itinerary);
-                await TaskAssignment.remove({ cust_id: checkCollection[0].customer.cust_id, itinerary_id: removed_itinerary[0]._id })
+                if (removed_itinerary != 0) {
+                    await Itinerary.findOneAndUpdate({ date: checkCollection[0].iti_date, travel_agent_id: checkCollection[0].travel_agent.userid }, { $pull: { assigned_customer_id: checkCollection[0].customer.cust_id } })
+                    console.log("bellooooo");
+
+                    var removed_task = TaskAssignment.find({ cust_id: checkCollection[0].customer.cust_id, itinerary_id: removed_itinerary[0]._id })
+
+                    if (removed_task.length != 0) {
+
+                        await TaskAssignment.remove({ cust_id: checkCollection[0].customer.cust_id, itinerary_id: removed_itinerary[0]._id })
+                    }
+                }
+
                 await Assign.findOneAndUpdate({ iti_date: req.body[i].iti_date, customer: req.body[i].customer }, req.body[i], { new: true });
                 console.log("Assign collection Updated");
             } else {
-                await assign.save(function(err, ass) {});
+                await assign.save();
                 console.log("Assign collection Added");
             }
 
@@ -41,7 +49,7 @@ exports.createAssign = (async function(req, res) {
         }
         var uniqueTAArr = [...new Set(taArr)]
         var custDetArr;
-        console.log(req.body)
+        //console.log(req.body)
         for (var i = 0; i < uniqueTAArr.length; i++) {
             custDetArr = await Assign.find({ iti_date: req.body[0].iti_date, travel_agent: uniqueTAArr[i] })
                 .populate('customer')
@@ -60,7 +68,7 @@ exports.createAssign = (async function(req, res) {
             }
 
             var checkItinerary = await Itinerary.find({ travel_agent_id: itineraryObj.travel_agent_id, date: itineraryObj.date });
-            //console.log(checkItinerary)
+            console.log(checkItinerary)
             var tempItinerary;
             if (checkItinerary.length != 0) {
                 console.log("Travel Itinerary Updated")
@@ -96,12 +104,13 @@ exports.createAssign = (async function(req, res) {
 
             }
         }
-
         res.json({ status: true, data: "Assign successful" })
     } catch (error) {
         console.log(error);
         res.json({ status: false, data: "Error in assign" })
     }
+
+
 })
 
 
@@ -131,4 +140,3 @@ exports.getAllAssign = function(req, res) {
         })
 
 };
-
