@@ -24,7 +24,7 @@ const userSchema = mongoose.Schema({
       type: String,
       required: true,
       minlength: [4, 'Password must be atleast 4 character long']
-  },
+    },
     saltSecret: String
   });
 
@@ -53,7 +53,8 @@ userSchema.methods.verifyPassword = function (password) {
 };
 
 userSchema.methods.generateJwt = function () {
-    return jwt.sign({ _id: this._id},
+    const { password, saltSecret, ...userData } = this._doc;
+    return jwt.sign(userData,
         process.env.JWT_SECRET,
     {
         expiresIn: process.env.JWT_EXP

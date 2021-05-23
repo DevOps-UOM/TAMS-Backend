@@ -41,3 +41,17 @@ exports.updateAUser = function(req, res) {
       res.json({ status: true, data: user });
   })
 };
+
+module.exports.getAgentLeaveStatusById = (req, res, next) => {
+  // const currentUser = req.user;
+  const id = parseInt(req.params.id);
+
+  // only allow admins to access other user records
+  // if (id !== currentUser.sub && currentUser.role !== Role.Admin) {
+  //     return res.status(401).json({ message: 'Unauthorized' });
+  // }
+
+  userService.getAgentLeaveStatusById(req.params.id)
+  .then(user => user ? res.json(user) : res.sendStatus(404))
+  .catch(err => next(err));
+}

@@ -1,6 +1,10 @@
 const config = require('../config/config.json');
 const jwt = require('jsonwebtoken');
 const Role = require('./role');
+const mongoose = require('mongoose');
+const { User } = require('./role');
+_User = mongoose.model('User');
+_Leave = mongoose.model('leaves');
 
 // users hardcoded for simplicity, store in a db for production applications
 // const users = [
@@ -11,7 +15,8 @@ const Role = require('./role');
 module.exports = {
     authenticate,
     getAll,
-    getById
+    getById,
+    getAgentLeaveStatusById
 };
 
 async function authenticate({ username, password }) {
@@ -38,4 +43,30 @@ async function getById(id) {
     if (!user) return;
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
+}
+
+async function getAgentLeaveStatusById(id){
+    const today = new Date();
+    const user= _User.find({ userid: id }, (err, doc) => {
+        const _user = doc;
+        const leaves = _Leave.find({
+            $and: [ 
+                {travel_agent : _user},
+                {start_date : {
+                    $gte : today
+                }},
+                {end_date : {
+                    $lte : today
+                }}
+            ]
+        },(err1,doc1) => {
+            console.log(doc1);
+        });
+        // console.log(userDocID);
+    });
+    // const temp = leaves.find(x => x.userid === user && x.leave_date.start_date >= today && x.leave_date.end_date <= today );
+    // console.log(temp);
+    return null;
+   
+
 }

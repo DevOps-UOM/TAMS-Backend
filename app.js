@@ -1,5 +1,6 @@
 require('./api/config/config');
 require('./api/config/passportConfig');
+require('./api/shared/user.service');
 
 var express = require('express');
 var mongoose = require('mongoose');
@@ -45,7 +46,18 @@ var TaskAssignment = require('./api/models/IsAssignToModel');
 var Task = require('./api/models/TasksModel');
 var User = require('./api/models/UserModel');
 
+var Assign= require('./api/models/AssignModel');
+var userService = require('./api/shared/user.service');
+
+
 mongoose.Promise = global.Promise;
+
+const schedule = require('node-schedule');
+
+const job = schedule.scheduleJob('*/1 * * * *', function(){
+    // userService.getAgentLeaveStatusById("TA002")
+    // console.log('The answer to life, the universe, and everything!');
+});
 
 const connectDB = async() => {
     await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -65,7 +77,8 @@ var routeleaves = require('./api/routes/leavesRoute');
 var userRoutes = require('./api/routes/UserRoutes');
 var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
 var routeTask = require('./api/routes/TasksRoute');
-
+var routeAssign= require('./api/routes/AssignRoute')
+var showLocationRoute = require('./api/routes/ShowLocationRoute')
 
 routeItinerary(app);
 routeCustomer(app);
@@ -74,6 +87,8 @@ routeleaves(app);
 userRoutes(app);
 routeTaskAssignment(app);
 routeTask(app);
+routeAssign(app);
+showLocationRoute(app)
 app.use(rtsIndex);
 
 
@@ -92,6 +107,7 @@ app.listen(port);
 //         console.log("Node app is running at localhost:" + app.get('port'));
 //     })
 console.log("TAMS Restful API server started on :" + port);
+
 
 /*
 const MongoClient = require('mongodb').MongoClient;
