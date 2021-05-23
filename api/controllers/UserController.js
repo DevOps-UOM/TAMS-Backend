@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const nodemailer = require('nodemailer');
 const _ = require('lodash');
 const userService = require('../shared/user.service');
 const authorize = require('../shared/authorize');
@@ -10,6 +11,7 @@ const Role = require('../shared/role');
 //Load all your models
 require('./../models/UserModel.js');
 const User = mongoose.model('User');
+const passwordResetToken = require('../models/ResetTokenModel');
 
 module.exports.register = (req, res, next) => {
     var user = new User();
