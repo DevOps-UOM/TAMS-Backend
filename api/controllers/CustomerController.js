@@ -11,7 +11,7 @@ exports.listAllCustomers = function(req, res) {
     //     res.json({ status: true, data: customer });
     // });
 
-    Customer.find({}).populate('default_agent_id')
+    Customer.find({ is_deleted: false }).populate('default_agent_id')
         .then(customer => {
             res.json({ status: true, data: customer });
         })
@@ -108,9 +108,16 @@ exports.getASingleCustomer = function(req, res) {
 // };
 
 exports.deleteACustomer = function(req, res) {
-    Customer.remove({ cust_id: req.params.id }, function(err, customer) {
+    // Customer.remove({ cust_id: req.params.id }, function(err, customer) {
+    //     if (err) {
+    //         res.json({ status: false, data: 'Unable to Delete!' });
+    //     }
+
+    //     res.json({ status: true, data: 'Customer removed Successfully!' });
+    // })
+    Customer.findOneAndUpdate({ cust_id: req.params.id }, { $set: { is_deleted: true } }, function(err, customer) {
         if (err) {
-            res.json({ status: false, data: 'Unable to Delete!' });
+            res.json({ status: false, data: 'Unable to Delete!' })
         }
 
         res.json({ status: true, data: 'Customer removed Successfully!' });

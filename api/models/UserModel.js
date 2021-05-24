@@ -7,11 +7,11 @@
 // const userSchema = mongoose.Schema({
 //     //userid
 //     userid: { type: String, required: true },
-  
+
 //     //email
 //     email: { type: String, required: true, unique:true },
-  
-  
+
+
 //     first_name: { type: String, required: true },
 //     last_name: { type: String, required: true },
 //     mobile_number: { type: Number, required: true },
@@ -79,11 +79,11 @@ const jwt = require('jsonwebtoken');
 const userSchema = mongoose.Schema({
     //userid
     userid: { type: String, required: true },
-  
+
     //email
-    email: { type: String, required: true, unique:true },
-  
-  
+    email: { type: String, required: true, unique: true },
+
+
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
     mobile_number: { type: Number, required: true },
@@ -93,13 +93,18 @@ const userSchema = mongoose.Schema({
     bio: { type: String, required: true },
     role: { type: String, required: true }, //agenttype
     password: {
-      type: String,
-      required: true,
-      minlength: [4, 'Password must be atleast 4 character long']
+        type: String,
+        required: true,
+        minlength: [4, 'Password must be atleast 4 character long']
     },
     saltSecret: String,
-    rate: { type: Number }
-  });
+    rate: { type: Number },
+    is_deleted: {
+        type: Boolean,
+        default: false,
+        new: true
+    }
+});
 
 // Custom validation for email
 userSchema.path('email').validate((val) => {
@@ -109,7 +114,7 @@ userSchema.path('email').validate((val) => {
 
 
 // Events
-userSchema.pre('save', function (next) {
+userSchema.pre('save', function(next) {
     console.log('presave running');
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(this.password, salt, (err, hash) => {
@@ -122,17 +127,16 @@ userSchema.pre('save', function (next) {
 
 
 // Methods
-userSchema.methods.verifyPassword = function (password) {
+userSchema.methods.verifyPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-userSchema.methods.generateJwt = function () {
+userSchema.methods.generateJwt = function() {
     const { password, saltSecret, ...userData } = this._doc;
     return jwt.sign(userData,
-        process.env.JWT_SECRET,
-    {
-        expiresIn: process.env.JWT_EXP
-    });
+        process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXP
+        });
 }
 
 // const User = mongoose.model('User',userSchema);
