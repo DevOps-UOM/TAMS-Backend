@@ -23,6 +23,18 @@ exports.listAllCustomers = function(req, res) {
 exports.addACustomer = function(req, res) {
     var newCustomer = new Customer(req.body);
 
+    Customer.find({}, function(err, doc) {
+        console.log('aaaa');
+        console.log(doc.length);
+        
+        var new_id = paddy(doc.length+1, 4)
+        console.log(new_id);
+    
+        new_id = 'C'+new_id
+    
+        console.log(new_id);
+        newCustomer['cust_id'] = new_id;
+
     newCustomer.save(function(err, customer) {
 
     });
@@ -33,7 +45,45 @@ exports.addACustomer = function(req, res) {
 
         res.json({ status: true, data: customer });
     });
+})
 };
+
+// exports.addACustomer = function(req, res) {
+//     const customer = new Customer(req.body);
+  
+//     Customer.find({}, (err, doc) => {
+//       console.log('abcd');
+//       console.log(doc.length);
+      
+//       var new_id = paddy(doc.length*1 +1, 4)
+//       console.log(new_id);
+  
+//       new_id = 'C'+new_id
+  
+//       console.log(new_id);
+//       customer['cust_id'] = new_id;
+      
+//       customer.save((err, doc) => {
+//         //   ResponseService.generalPayloadResponse(err, doc, res);
+//         });
+  
+//     })
+// };
+
+function getNextSequenceValue(sequenceName){
+    var sequenceDocument = db.counters.findAndModify({
+       query:{cust_id: sequenceName },
+       update: {$inc:{sequence_value:1}},
+       new:true
+    });
+    return sequenceDocument.sequence_value;
+  }
+
+  function paddy(num, padlen, padchar) {
+	var pad_char = typeof padchar !== "undefined" ? padchar : "0";
+	var pad = new Array(1 + padlen).join(pad_char);
+	return (pad + num).slice(-pad.length);
+}
 
 exports.getASingleCustomer = function(req, res) {
     Customer.find({ cust_id: req.params.id }, function(err, customer) {

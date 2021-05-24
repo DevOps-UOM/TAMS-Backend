@@ -5,10 +5,10 @@ module.exports = function(app) {
     app.route('/users').post(user.createUser);
 
     //get ca agent
-    app.route('/ca-agents').get(user.getUser);
+    app.route('/ca-agents').get(user.getCAagent);
 
     //get ta agent
-    app.route('/ta-agents').get(user.getMaxUser);
+    app.route('/ta-agents').get(user.getTAagent);
 
     app.route('/users/:id').get(user.findOne);
 

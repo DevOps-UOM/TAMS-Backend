@@ -5,11 +5,12 @@ Grade = mongoose.model('User');
 exports.createUser = function(req, res) {
   const grade = new Grade(req.body);
 
+  if(grade.role == "ta"){
   Grade.find({ role: "ta" }, (err, doc) => {
     console.log('dddd');
     console.log(doc.length);
     
-    var new_id = paddy(doc.length+1, 6)
+    var new_id = paddy(doc.length*1 +1, 4)
     console.log(new_id);
 
     new_id = grade['role'].toUpperCase()+new_id
@@ -22,8 +23,32 @@ exports.createUser = function(req, res) {
       });
 
   })
+
+} else {
+
+  Grade.find({ role: "ca" }, (err, doc) => {
+    console.log('cccc');
+    console.log(doc.length);
+    
+    var new_id = paddy(doc.length*1 +1, 4)
+    console.log(new_id);
+
+    new_id = grade['role'].toUpperCase()+new_id
+
+    console.log(new_id);
+    grade['userid'] = new_id;
+    
+    grade.save((err, doc) => {
+        ResponseService.generalPayloadResponse(err, doc, res);
+      });
+
+  })
+
+}
   
 };
+
+
 
 function getNextSequenceValue(sequenceName){
   var sequenceDocument = db.counters.findAndModify({
@@ -34,7 +59,7 @@ function getNextSequenceValue(sequenceName){
   return sequenceDocument.sequence_value;
 }
 
-exports.getUser = function(req, res) {
+exports.getCAagent = function(req, res) {
   
 
   Grade.find({ role: "ca" }, (err, doc) => {
@@ -42,7 +67,7 @@ exports.getUser = function(req, res) {
   });
 };
 
-exports.getMaxUser = function(req, res) {
+exports.getTAagent = function(req, res) {
 
   
   Grade.find({ role: "ta" }, (err, doc) => {
