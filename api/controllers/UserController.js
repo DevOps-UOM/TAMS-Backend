@@ -84,9 +84,9 @@ module.exports.getById = (req, res, next) => {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    userService.getById(req.params.id)
-        .then(user => user ? res.json(user) : res.sendStatus(404))
-        .catch(err => next(err));
+    // userService.getById(req.params.id)
+    //     .then(user => user ? res.json(user) : res.sendStatus(404))
+    //     .catch(err => next(err));
 }
 
 

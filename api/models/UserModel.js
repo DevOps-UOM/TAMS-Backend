@@ -97,7 +97,8 @@ const userSchema = mongoose.Schema({
       required: true,
       minlength: [4, 'Password must be atleast 4 character long']
     },
-    saltSecret: String
+    saltSecret: String,
+    rate: { type: Number }
   });
 
 // Custom validation for email

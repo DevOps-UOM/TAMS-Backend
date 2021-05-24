@@ -22,6 +22,7 @@
         "jsonwebtoken": "^8.5.1",
         "lodash": "^4.17.21",
         "mongoose": "^5.10.9",
+        "mongoose-auto-increment": "^5.0.1",
         "mongoose-type-email": "^1.0.13",
         "nodemailer": "^6.6.0",
         "nodemailer-smtp-transport": "^2.7.4",

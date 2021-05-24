@@ -15,5 +15,5 @@ module.exports = function(app) {
 
     // //delete Itinerary
     // app.route('/customers/:id').delete(customers.deleteACustomer);
-    
+
 }
