@@ -16,6 +16,6 @@ module.exports = function(app) {
 
     app.route('/abc/:id').get(user.getAgentLeaveStatusById)
 
-    app.route('/users/:id').remove(user.deleteAnAgent);
+    app.route('/users/:id').delete(user.deleteAnAgent);
 
 }
