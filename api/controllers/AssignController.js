@@ -49,18 +49,27 @@ exports.createAssign = (async function(req, res) {
         }
         var uniqueTAArr = [...new Set(taArr)]
         var custDetArr;
-        //console.log(req.body)
+
+        console.log("-------------------Unique TAs-----------------")
+        console.log(uniqueTAArr)
+
         for (var i = 0; i < uniqueTAArr.length; i++) {
             custDetArr = await Assign.find({ iti_date: req.body[0].iti_date, travel_agent: uniqueTAArr[i] })
                 .populate('customer')
                 .populate('travel_agent');
 
-            //console.log(custDetArr);
+            console.log("-------------------Cusomer Detailed Array-----------------")
+            console.log(custDetArr);
 
             var custArr = [];
+
             for (var j = 0; j < custDetArr.length; j++) {
                 custArr.push(custDetArr[j].customer.cust_id);
             }
+
+            console.log("-------------------Cusomer ID Array-----------------")
+            console.log(custArr);
+
             var itineraryObj = {
                 date: req.body[0].iti_date,
                 travel_agent_id: custDetArr[0].travel_agent.userid,
@@ -81,7 +90,14 @@ exports.createAssign = (async function(req, res) {
 
             for (var j = 0; j < custDetArr.length; j++) {
                 var availability = await Availability.find({ cust_id: custDetArr[j].customer._id, date: itineraryObj.date })
-                    //console.log(availability);
+
+                console.log("---------------------Availability--------------------")
+                console.log(availability);
+
+                if (availability.length === 0) {
+                    res.json({ status: false, data: "Can't find Availability" })
+                    return;
+                }
                 var taskAssignObj = {
                     cust_id: custDetArr[j].customer.cust_id,
                     itinerary_id: tempItinerary._id,
@@ -89,6 +105,9 @@ exports.createAssign = (async function(req, res) {
                     status: "Pending",
                     queue_number: 100
                 }
+
+                console.log("---------------------Task Assignment--------------------")
+                console.log(taskAssignObj);
 
                 var checkTaskAssign = await TaskAssignment.find({ cust_id: taskAssignObj.cust_id, itinerary_id: taskAssignObj.itinerary_id })
                     //console.log(taskAssignObj);
