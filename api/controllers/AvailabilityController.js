@@ -47,3 +47,18 @@ exports.getAllAvailability = function(req, res) {
         //     res.json({ status: true, data: availabilities });
         // }).populate('task');
 };
+
+exports.editAvailability= (req,res) =>{
+    Availability.updateOne({_id: req.params.id}, {
+        $set: req.body
+    })}
+
+exports.deleteAvailability = (req, res) => {
+    Availability.deleteOne({date: req.params.date, _id: req.params.custid }, (err, Availability) => {
+        if(err){
+           return res.json({ status: false, data: 'Unable to Delete!' });
+        }
+           return res.json({ status: true, data: 'Availability removed Successfully!' });
+    }
+        )
+}

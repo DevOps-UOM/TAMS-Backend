@@ -101,6 +101,7 @@ exports.deleteAItinerary = function(req, res) {
         }
         res.json({ status: true, data: 'Itinerary removed Successfully!' });
     })
+
 };
 
 // exports.getAllocatedCustomers = (async function(req, res) {
