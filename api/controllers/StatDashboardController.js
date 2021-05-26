@@ -14,15 +14,18 @@ const Customer = mongoose.model('Customer');
 const ItineraryModel = require('../models/ItineraryModel');
 
 exports.listAllAgents = function(req,res){
-    // let mysort = { rate: -1 };
-    // let limit = 5;
-    // User.find().sort(mysort).limit(limit).exec((err,agents)=>{
-    //     if(err){
-    //         return res.json({status:false, data:'Unable to show all'});
-    //     }
-    //     return res.json({status:true, data:agents});
-    // });
+    let mysort = { rate: -1 };
+    let limit = 5;
+    User.find().sort(mysort).limit(limit).exec((err,agents)=>{
+        if(err){
+            return res.json({status:false, data:'Unable to show all'});
+        }
+        return res.json({status:true, data:agents});
+    });
+}
 
+
+exports.listMostVisitedCustomers = function(req,res){
     ItineraryModel.aggregate([
         {
             $unwind: "$assigned_customer_id"
@@ -61,3 +64,73 @@ exports.listAllAgents = function(req,res){
 }
 
 
+exports.listMostEfficientDays= function(req,res){
+    ItineraryModel.aggregate([
+  {
+    '$project': {
+      'assigned_customer_id': 1, 
+      'date': 1, 
+      'customer_count': {
+        '$size': '$assigned_customer_id'
+      }
+    }
+  }, {
+    '$group': {
+      '_id': '$date', 
+      'sum_count': {
+        '$sum': '$customer_count'
+      }
+    }
+  }, {
+    '$sort': {
+      'sum_count': -1
+    }
+  }
+]).limit(5).exec(async (err, result) => {
+        if(err){
+            return res.json({ status:false, data:'Unable to show all' });
+            console.log(err);
+        }
+
+        return res.json({ 
+            status:true,
+            data: result
+        });
+    })
+}
+
+
+exports.listLeastEfficientDays= function(req,res){
+    ItineraryModel.aggregate([
+  {
+    '$project': {
+      'assigned_customer_id': 1, 
+      'date': 1, 
+      'customer_count': {
+        '$size': '$assigned_customer_id'
+      }
+    }
+  }, {
+    '$group': {
+      '_id': '$date', 
+      'sum_count': {
+        '$sum': '$customer_count'
+      }
+    }
+  }, {
+    '$sort': {
+      'sum_count': 1
+    }
+  }
+]).limit(5).exec(async (err, result) => {
+        if(err){
+            return res.json({ status:false, data:'Unable to show all' });
+            console.log(err);
+        }
+
+        return res.json({ 
+            status:true,
+            data: result
+        });
+    })
+}
