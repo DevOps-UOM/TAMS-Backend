@@ -13,6 +13,7 @@ var TaskAssignment = new Schema({
     },
     rate: {
         type: Number,
+        default: null
     },
     task: [{
         type: mongoose.Schema.ObjectId,
@@ -31,6 +32,11 @@ var TaskAssignment = new Schema({
         type: Number,
         default: 100
     }
+    // ,
+    // urlId: {
+    //     type: String,
+    //     unique: true
+    // }
 });
 
 module.exports = mongoose.model('task_assignment', TaskAssignment);
