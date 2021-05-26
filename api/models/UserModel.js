@@ -102,7 +102,7 @@ const userSchema = mongoose.Schema({
 
 // Custom validation for email
 userSchema.path('email').validate((val) => {
-    emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    emailRegex = /^w+[+.w-]@([w-]+.)*w+[w-].([a-z]{2,4}|d+)$/i;
     return emailRegex.test(val);
 }, 'Invalid e-mail.');
 
