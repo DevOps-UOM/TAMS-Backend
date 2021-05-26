@@ -6,4 +6,11 @@ module.exports = function(app) {
 
     //get all
     app.route('/availability').get(availability.getAllAvailability);
+
+    //update Availability
+    app.route('/availability/:id').put(availability.editAvailability)
+
+    //delete Availability
+    app.route('/availability/:date/:custid').delete(availability.deleteAvailability)
+
 }

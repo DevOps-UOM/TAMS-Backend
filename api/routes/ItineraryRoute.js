@@ -7,6 +7,9 @@ module.exports = function(app) {
     //create new
     app.route('/itineraries').post(itineraries.addAItinerary);
 
+    //get by date
+    app.route('/itineraries/:date').get(itineraries.listItinerariesByDate);
+
     //get single Itinerary
     app.route('/itineraries/:date/:taid').get(itineraries.getASingleItinerary);
 
@@ -18,6 +21,7 @@ module.exports = function(app) {
 
 
     app.route('/itineraries/allocated_customers/:date/:taid').get(itineraries.getAllocatedCustomers);
+    
 
     app.route('/itineraries/allocated_pending_customers/:date/:taid').get(itineraries.getAllocatedPendingCustomers);
 }

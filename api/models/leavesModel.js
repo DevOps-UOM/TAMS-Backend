@@ -4,26 +4,32 @@ const Schema = mongoose.Schema;
 
 var leavesSchema = new Schema({
     
-    ta_id: {
-        type: String
-    },
-    ta_name: {
-        type: String,
+    travel_agent: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
         required: 'Enter TA ID'
     },
-    leave_date: {
-        type: Object,
+    // ta_name: {
+    //     type: String,
+    //     required: 'Enter TA ID'
+    // },
+    // leave_date: {
+    //     type: Object,
+    //     required: true
+    // },
+    start_date: {
+        type: Date,
         required: true
     },
-    pod: {
-        type: String,
+    end_date: {
+        type: Date,
+        required: true
     },
-    
     note: {
         type: String
     },
     
-});
+},{timestamps: true});
 
 
 module.exports = mongoose.model('leaves', leavesSchema);

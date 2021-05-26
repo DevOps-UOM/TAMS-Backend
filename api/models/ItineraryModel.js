@@ -13,6 +13,12 @@ var ItineraryDateSchema = new Schema({
         type: String,
         required: 'Enter Travel Agent ID'
     },
+    // travel_agent_id:{
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'User',
+    //     required: 'Enter ID'
+    // },
+
     assigned_customer_id: [String]
 });
 
