@@ -6,7 +6,7 @@ exports.createUser = function(req, res) {
     const grade = new Grade(req.body);
 
     if (grade.role == "ta") {
-        Grade.find({ role: "ta", is_deleted: false }, (err, doc) => {
+        Grade.find({ role: "ta" }, (err, doc) => {
             console.log('dddd');
             console.log(doc.length);
 
@@ -26,7 +26,7 @@ exports.createUser = function(req, res) {
 
     } else {
 
-        Grade.find({ role: "ca", is_deleted: false }, (err, doc) => {
+        Grade.find({ role: "ca" }, (err, doc) => {
             console.log('cccc');
             console.log(doc.length);
 
@@ -62,7 +62,7 @@ function getNextSequenceValue(sequenceName) {
 exports.getCAagent = function(req, res) {
 
 
-    Grade.find({ role: "ca" }, (err, doc) => {
+    Grade.find({ role: "ca", is_deleted: false }, (err, doc) => {
         ResponseService.generalPayloadResponse(err, doc, res);
     });
 };
@@ -70,7 +70,7 @@ exports.getCAagent = function(req, res) {
 exports.getTAagent = function(req, res) {
 
 
-    Grade.find({ role: "ta" }, (err, doc) => {
+    Grade.find({ role: "ta", is_deleted: false }, (err, doc) => {
         ResponseService.generalPayloadResponse(err, doc, res);
     });
 };
