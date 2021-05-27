@@ -1,11 +1,7 @@
 ### authenticate user
-POST http://localhost:3000/authenticate
+GET http://localhost:3000/best-agents
 Content-Type: application/json
 
-{
-    "email": "ryann@gmail.com",
-    "password": "Admin"
-}
 
 
 ### register user

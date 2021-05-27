@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const { User } = require('./role');
 _User = mongoose.model('User');
 _Leave = mongoose.model('leaves');
-
+require('../controllers/UserController');
 // users hardcoded for simplicity, store in a db for production applications
 // const users = [
 //     { id: 1, username: 'admin', password: 'admin', firstName: 'Admin', lastName: 'User', role: Role.Admin },

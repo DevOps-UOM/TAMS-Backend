@@ -6,10 +6,12 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const uri = "mongodb+srv://dbAdmin:LGPxREeweWiVjnPM@clustertams.ovlfe.mongodb.net/TRAVELING-AGENTS-MANAGEMENT-SYSTEM?retryWrites=true&w=majority";
 
 const rtsIndex = require('./api/routes/IndexRoute');
+// app.use('/api/resetpassword', auth);
 
 var app = express();
 
@@ -18,6 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(passport.initialize());
 app.use('/api', rtsIndex);
+app.use(cookieParser());
 
 
 app.use(cors());
@@ -46,7 +49,7 @@ var TaskAssignment = require('./api/models/IsAssignToModel');
 var Task = require('./api/models/TasksModel');
 var User = require('./api/models/UserModel');
 
-var Assign= require('./api/models/AssignModel');
+var Assign = require('./api/models/AssignModel');
 var userService = require('./api/shared/user.service');
 
 
@@ -54,7 +57,7 @@ mongoose.Promise = global.Promise;
 
 const schedule = require('node-schedule');
 
-const job = schedule.scheduleJob('*/1 * * * *', function(){
+const job = schedule.scheduleJob('*/1 * * * *', function() {
     // userService.getAgentLeaveStatusById("TA002")
     // console.log('The answer to life, the universe, and everything!');
 });
@@ -77,8 +80,11 @@ var routeleaves = require('./api/routes/leavesRoute');
 var userRoutes = require('./api/routes/UserRoutes');
 var routeTaskAssignment = require('./api/routes/IsAssignToRoute')
 var routeTask = require('./api/routes/TasksRoute');
-var routeAssign= require('./api/routes/AssignRoute')
+var routeAssign = require('./api/routes/AssignRoute')
 var showLocationRoute = require('./api/routes/ShowLocationRoute')
+
+var routeStatDashboard = require('./api/routes/StatDashboardRoute');
+
 
 routeItinerary(app);
 routeCustomer(app);
@@ -89,6 +95,7 @@ routeTaskAssignment(app);
 routeTask(app);
 routeAssign(app);
 showLocationRoute(app)
+routeStatDashboard(app);
 app.use(rtsIndex);
 
 
