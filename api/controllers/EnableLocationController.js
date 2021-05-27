@@ -122,10 +122,10 @@ exports.isExpired = async function(req, res) {
     // console.log(" Id ::::: " + random_key);
 
     // const showLocationModel = new ShowLocation();
-
+    console.log(req.params);
     const dbRecord = await ShowLocation.find({ travel_agent_id: ta_id, customer_id: cust_id });
 
-    if (!dbRecord && dbRecord.length == 0) {
+    if (dbRecord.length == 0) {
         return res
             .status(404)
             .send({ status: false, msg: `No record found ` });
@@ -133,6 +133,7 @@ exports.isExpired = async function(req, res) {
 
     const existingRecord = dbRecord[0];
 
+    console.log(dbRecord);
     if (existingRecord.expired) {
         return res.status(400).send({ status: false, msg: `key is expired` });
     }
