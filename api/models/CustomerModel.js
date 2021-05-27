@@ -47,7 +47,11 @@ var CustomerSchema = new Schema({
         city: String
     },
     area: String,
-    is_deleted: Boolean,
+    is_deleted: {
+        type: Boolean,
+        default: false,
+        new: true
+    },
     default_agent_id: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'

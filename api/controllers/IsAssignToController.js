@@ -1,6 +1,18 @@
 var mongoose = require("mongoose");
+//var nodemailer = require('nodemailer');
+
 
 TaskAssignment = mongoose.model('task_assignment');
+Customer = mongoose.model('Customer')
+
+// var transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: 'tams.uom@gmail.com',
+//         pass: 'Tams1234'
+//     }
+// });
+
 
 // exports.listAllTaskAssignments = function(req, res) {
 //     TaskAssignment.find({ is_deleted: false }, function(err, taskAssignment) {
