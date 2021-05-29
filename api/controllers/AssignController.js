@@ -117,7 +117,7 @@ exports.createAssign = (async function(req, res) {
                     console.log("Task Assignment Updated")
                 } else {
                     const taskAssign = new TaskAssignment(taskAssignObj)
-                    taskAssign.save()
+                    await taskAssign.save()
                     console.log("Task Assignment Added")
                 }
 

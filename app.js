@@ -23,7 +23,7 @@ app.use('/api', rtsIndex);
 app.use(cookieParser());
 
 
-app.use(cors());
+//app.use(cors());
 
 // app.use(rtsIndex);
 
