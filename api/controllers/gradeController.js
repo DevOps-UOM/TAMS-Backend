@@ -24,7 +24,7 @@ exports.createUser = function(req, res) {
 
         })
 
-    } else {
+    } else if(grade.role == "ca"){
 
         Grade.find({ role: "ca" }, (err, doc) => {
             console.log('cccc');
