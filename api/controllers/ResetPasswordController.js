@@ -290,7 +290,7 @@ module.exports.NewPassword = async (req, res) => {
                   if (err) {
                     return res
                       .status(400)
-                      .json({ message: 'Password can not reset.' });
+                      .json({ message: 'Password cannot reset.' });
                   } else {
                     userToken.remove();
                     return res
