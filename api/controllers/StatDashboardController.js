@@ -12,6 +12,7 @@
 const mongoose = require('mongoose');
 const Customer = mongoose.model('Customer');
 const ItineraryModel = require('../models/ItineraryModel');
+const moment = require('moment');
 
 exports.listAllAgents = function(req,res){
     let mysort = { rate: -1 };
@@ -133,4 +134,78 @@ exports.listLeastEfficientDays= function(req,res){
             data: result
         });
     })
+}
+
+
+exports.listDailyTaskCount = function(req,res){
+  const start = moment().startOf('day')
+  const end = moment().endOf('day').format()
+
+  console.log(start, end);
+  console.log(new Date(start),new Date(end),); 
+  
+    ItineraryModel.aggregate([
+      {
+        $match : {
+          date : { $gte: new Date(start), $lte:new Date(end)},
+        }
+      },
+      {
+        "$addFields": { "stringID" : { "$toString": "$_id"}}
+      },
+      { $lookup: {
+          from:"task_assignments",
+          localField: "stringID",
+          foreignField:"itinerary_id",
+          as: "tasksList"
+        }}
+      
+    ]).exec(async (err, result) => {
+      if(err){
+          console.log(err);
+          return res.json({ status:false, data:'Unable to show all' });
+      }
+      console.log(result);
+      return res.json({ 
+          status:true,
+          data: result
+      });
+  })
+}
+
+
+exports.listMonthlyTaskCount = function(req,res){
+  const start = moment().startOf('month')
+  const end = moment().endOf('month').format()
+
+  console.log(start, end);
+  console.log(new Date(start),new Date(end),); 
+  
+    ItineraryModel.aggregate([
+      {
+        $match : {
+          date : { $gte: new Date(start), $lte:new Date(end)},
+        }
+      },
+      {
+        "$addFields": { "stringID" : { "$toString": "$_id"}}
+      },
+      { $lookup: {
+          from:"task_assignments",
+          localField: "stringID",
+          foreignField:"itinerary_id",
+          as: "tasksList"
+        }}
+      
+    ]).exec(async (err, result) => {
+      if(err){
+          console.log(err);
+          return res.json({ status:false, data:'Unable to show all' });
+      }
+      console.log(result);
+      return res.json({ 
+          status:true,
+          data: result
+      });
+  })
 }

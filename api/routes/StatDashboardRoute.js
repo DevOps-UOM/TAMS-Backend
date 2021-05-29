@@ -33,5 +33,11 @@ module.exports = function(app) {
 
     //get efficient days
     app.route('/least-efficient-days').get(agents.listLeastEfficientDays);
+
+    //get efficient days
+    app.route('/list-daily-task-count').get(agents.listDailyTaskCount);
+
+    //get efficient days
+    app.route('/list-monthly-task-count').get(agents.listMonthlyTaskCount);
     
 }
