@@ -1,19 +1,22 @@
 module.exports = function(app) {
     var agents = require('../controllers/StatDashboardController');
 
-    //get all
+    //get best agents
     app.route('/best-agents').get(agents.listAllAgents);
 
-    // //create new
-    // app.route('/customers').post(customers.addACustomer);
+    //get best agents
+    app.route('/most-visited-customers').get(agents.listMostVisitedCustomers);
 
-    // //get single Itinerary
-    // app.route('/customers/:id').get(customers.getASingleCustomer);
+    //get efficient days
+    app.route('/most-efficient-days').get(agents.listMostEfficientDays);
 
-    // //edit Itinerary
-    // app.route('/customers/:id').put(customers.updateACustomer);
+    //get efficient days
+    app.route('/least-efficient-days').get(agents.listLeastEfficientDays);
 
-    // //delete Itinerary
-    // app.route('/customers/:id').delete(customers.deleteACustomer);
+    //get efficient days
+    app.route('/list-daily-task-count').get(agents.listDailyTaskCount);
+
+    //get efficient days
+    app.route('/list-monthly-task-count').get(agents.listMonthlyTaskCount);
 
 }
