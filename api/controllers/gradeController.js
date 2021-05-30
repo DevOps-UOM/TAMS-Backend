@@ -4,7 +4,8 @@ Grade = mongoose.model('User');
 
 exports.createUser = function(req, res) {
     const grade = new Grade(req.body);
-
+    console.log(req.body);
+    console.log(grade);
     if (grade.role == "ta") {
         Grade.find({ role: "ta" }, (err, doc) => {
             console.log('dddd');
@@ -24,7 +25,7 @@ exports.createUser = function(req, res) {
 
         })
 
-    } else {
+    } else if (grade.role == "ca") {
 
         Grade.find({ role: "ca" }, (err, doc) => {
             console.log('cccc');

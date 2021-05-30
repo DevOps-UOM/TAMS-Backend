@@ -12,7 +12,7 @@ module.exports = function(app) {
 
     app.route('/users/:id').get(user.findOne);
 
-    app.route('/users/:id').get(user.updateAUser);
+    //app.route('/users/:id').get(user.updateAUser);
 
     app.route('/abc/:id').get(user.getAgentLeaveStatusById)
 
