@@ -12,4 +12,7 @@ module.exports = function(app) {
     //get all
     app.route('/leaves').get(leaves.getAllleaves);
 
+     //delete Availability
+     app.route('/leaves/:id').delete(leaves.deleteLeaves);
+
 }

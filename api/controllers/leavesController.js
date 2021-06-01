@@ -29,3 +29,12 @@ exports.getAllleaves = function(req, res) {
         })
 };
 
+exports.deleteLeaves = (req, res) => {
+    leaves.deleteOne({_id: req.params.id}, (err, leaves) => {
+        if(err){
+           return res.json({ status: false, data: 'Unable to Delete!' });
+        }
+           return res.json({ status: true, data: 'Leave removed Successfully!' });
+    }
+        )
+}
