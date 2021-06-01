@@ -11,7 +11,8 @@ const TaskSchema = new Schema({
         type: String
     },
     task_duration: {
-        type: String
+        type: Number ,
+        required: 'Enter TASK DURATION'
     }
 
 });

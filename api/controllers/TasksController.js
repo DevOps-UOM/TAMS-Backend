@@ -21,3 +21,13 @@ exports.getAllTask = function(req, res) {
     });
 };
 
+exports.deleteTask = (req, res) => {
+    Task.deleteOne({ _id: req.params.id }, (err, Task) => {
+        if(err){
+           return res.json({ status: false, data: 'Unable to Delete!' });
+        }
+           return res.json({ status: true, data: 'Task removed Successfully!' });
+    }
+        )
+}
+

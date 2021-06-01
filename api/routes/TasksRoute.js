@@ -6,4 +6,7 @@ module.exports = function(app) {
 
     //get all
     app.route('/task').get(task.getAllTask);
+
+    //delete task
+    app.route('/task/:id').delete(task.deleteTask);
 }

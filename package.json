@@ -4,7 +4,7 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "start": "node app.js",
+        "start": "nodemon app.js",
         "test": "ng test"
     },
     "author": "Johan Perera",
@@ -33,7 +33,7 @@
         "typescript": "^4.2.3"
     },
     "devDependencies": {
-        "nodemon": "^2.0.6",
-        "mquery": ">=3.2.3"
+        "mquery": ">=3.2.3",
+        "nodemon": "^2.0.7"
     }
 }
