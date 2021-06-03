@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 
 const AvailabilitySchema = new Schema({
+    // cust_id: {
+    //     type: String,
+    //     ref: 'Customer',
+    //     required: 'Enter CUS ID'
+    // },
     cust_id: {
         type: mongoose.Schema.ObjectId,
         ref: 'Customer',
@@ -12,12 +17,7 @@ const AvailabilitySchema = new Schema({
         type: Date,
         required: true
     },
-    // time_from: {
-    //     type: String,
-    // },
-    // time_to: {
-    //     type: String,
-    // },
+
     task: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Task'
